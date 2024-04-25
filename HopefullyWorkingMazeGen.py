@@ -173,14 +173,14 @@ def mazeMaker(sc,n):
     print("declared grid_cells")
 
     cellGrid=[]
-    for i in range(rows+2):
+    for i in range(rows+4):
         cellGrid.append([])
-    for i in range(rows+2):
-        for j in range(cols+2):
+    for i in range(rows+4):
+        for j in range(cols+4):
             curr=Cell(i,j)
             cellGrid[i].append(curr)
-    for i in range(rows-2,rows):
-        for j in range(cols-2,cols):
+    for i in range(rows-4,rows):
+        for j in range(cols-4,cols):
             curr=Cell(i,j)
             curr.walls = {'top':False, 'left':False, 'bottom':False, 'right':False}
             curr.path = {'top':False, 'left':False, 'bottom':False, 'right':False}
