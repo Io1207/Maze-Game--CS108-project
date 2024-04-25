@@ -20,5 +20,12 @@ class Player:
 def renderPlayer(player:Player,position,screen):
     pygame.draw.rect(screen,BLACK,rect=(position[0],position[1],40,40))
     
-def playerMove():
-    print()
+def playerMove(player,keyPressed):
+    if keyPressed[pygame.K_LEFT]:
+        player.x -= 40
+    if keyPressed[pygame.K_RIGHT]:
+        player.x += 40
+    if keyPressed[pygame.K_UP]:
+        player.y -= 40
+    if keyPressed[pygame.K_DOWN]:
+        player.y += 40

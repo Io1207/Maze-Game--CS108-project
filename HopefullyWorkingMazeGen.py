@@ -41,7 +41,6 @@ class Cell:
             cell.path = {'top':False, 'left':False, 'bottom':False, 'right':False}
             cell.visited = False
             cell.solution = False
-            cell.visible=False
 
         def __str__(cell):
             return f"({cell.x},{cell.y})"
@@ -173,8 +172,7 @@ def mazeMaker(sc,n):
     print("declared grid_cells")
 
     cellGrid=[]
-    for i in range(rows+4):
-        cellGrid.append([])
+    cellGrid = [[] for _ in range(rows + 4)]
     for i in range(rows+4):
         for j in range(cols+4):
             curr=Cell(i,j)
@@ -186,7 +184,6 @@ def mazeMaker(sc,n):
             curr.path = {'top':False, 'left':False, 'bottom':False, 'right':False}
             curr.visited = True
             curr.solution = False
-            curr.visible=False
 
     print("declared cell grid with padding",len(cellGrid))
 
@@ -251,8 +248,8 @@ def mazeMaker(sc,n):
                     #print(path)
                     #pygame.time.delay(5000)
                     
-                    info=[sc,cellGrid]
-                    #pygame.display.flip()
+                    info=[sc,cellGrid,rows]
+                    pygame.display.flip()
                     return info
 
         #pygame.display.flip()

@@ -1,6 +1,20 @@
 from utils import *
 from HopefullyWorkingMazeGen import *
+from Player import *
 
+def display(grid,screen):
+    width=1
+    for i in range(10):
+        for j in range(10):
+            infople=grid[i][j]
+            if infople[0]:
+                pygame.draw.line(screen,WHITE,((i)*40,(j)*40),((i+1)*40,(j)*40),width)
+            if infople[1]:
+                pygame.draw.line(screen,WHITE,((i+1)*40,(j)*40),((i+1)*40,(j+1)*40),width)
+            if infople[2]:
+                pygame.draw.line(screen,WHITE,((i)*40,(j+1)*40),((i+1)*40,(j+1)*40),width)
+            if infople[3]:
+                pygame.draw.line(screen,WHITE,((i)*40,(j)*40),((i)*40,(j+1)*40),width)
 
 def screenChange(n):
     if n==0: #Going to game Screen
@@ -132,10 +146,31 @@ def screenChange(n):
     return info
 
 
-def mazeDisplay(info,player):
+def mazeDisplay(info,player:Player):
     viewPort=pygame.display.set_mode((400,700))
+    viewPort.fill(pygame.Color("Aquamarine"))
     screen=info[0]
     array=info[1]
+    cols,rows=info[2]
+    presentGrid = [[] for _ in range(10)]
     for i in range(10):
         for j in range(10):
-            
+            curr=Cell(player.x-4+i,player.y-4+j)
+            walls=curr.walls
+            walltuple=(0,0,0,0)
+            if curr.walls['top']:
+                walltuple[0]=1
+            if curr.walls['right']:
+                walltuple[1]=1
+            if curr.walls['bottom']:
+                walltuple[2]=1
+            if curr.walls['left']:
+                walltuple[3]=1
+            presentGrid[i].append(walltuple)
+
+    # def checkCell(x, y):
+    #         if x < 0 or x > cols+3 or y < 0 or y > rows+3:
+    #             return False
+    #         return array[x][y]
+    display(presentGrid,viewPort)
+    pygame.display.flip()

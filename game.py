@@ -13,6 +13,7 @@ def gameRunner():
     avatarChosen=False
     amIOnStartScreen=True
     amIOnEndScreen=False
+    amIOnPlayScreen=False
 
     while running:
         for event in pygame.event.get():
@@ -30,6 +31,9 @@ def gameRunner():
                 elif WIDTH/2-55<mousePos[0]<WIDTH/2+55 and 580<mousePos[1]<630:
                     n=3
                 
+            if event.type==pygame.KEYDOWN and amIOnPlayScreen:
+                keysPressed = pygame.key.get_pressed()
+                playerMove(keysPressed)
                 ##Choosing Avatar
 
 
@@ -42,11 +46,12 @@ def gameRunner():
 
                 if (n==1 or n==2 or n==3) and entered and start:
                     amIonStartScreen=False
-                    info=screenChange(n) # info=[[mazeScreen,arrayWithCellInfo]]
+                    info=screenChange(n) # info=[[mazeScreen,arrayWithCellInfo,rows]]
                     print("came back to game.py")
                 
                 if n==7:
                     mazeDisplay(info[0])
+
                 
                 # if n==5:
                 #     mazeDisplay(screen)
