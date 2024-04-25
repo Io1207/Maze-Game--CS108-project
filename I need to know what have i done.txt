@@ -1,0 +1,6 @@
+I need to know what have i done
+
+1. You have created some screens, a>the starting screen b>the screen on which the maze is made 
+   c>the waiting screen  d>planning on making the viewport
+
+2. Info that screenchange is returning is 
