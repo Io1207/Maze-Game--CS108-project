@@ -46,7 +46,7 @@ class Cell:
             return f"({cell.x},{cell.y})"
 
 
-def mazeMaker(sc,n):
+def mazeMaker(n):
     print("entered maze gen")
     clock = pygame.time.Clock()
 
@@ -80,33 +80,33 @@ def mazeMaker(sc,n):
     #Add the text for when the person wants to start, maybe include some instructions 
     #and tell them that it is also taking time to make the maze, they're not the only deciding factors her
 
-    def draw(cell:Cell):
-        x, y = cell.x * size, cell.y * size
-        if cell.visited:
-            pygame.draw.rect(sc, visited_color, (x, y, size, size))
-    #  if cell.solution:
-    #     pygame.draw.rect(sc, solution_color, (x+size//6, y+size//6, size-size//3, size-size//3), size//10)
-        if cell.walls['top']:
-            pygame.draw.line(sc, wall_color, (x,y), (x+size,y), line_width)
-        if cell.walls['left']:
-            pygame.draw.line(sc, wall_color, (x,y), (x,y+size), line_width)
-        if cell.walls['bottom']:
-            pygame.draw.line(sc, wall_color, (x,y+size), (x+size,y+size), line_width)
-        if cell.walls['right']:
-            pygame.draw.line(sc, wall_color, (x+size,y), (x+size,y+size), line_width)
+    # def draw(cell:Cell):
+    #     x, y = cell.x * size, cell.y * size
+    #     if cell.visited:
+    #         pygame.draw.rect(sc, visited_color, (x, y, size, size))
+    # #  if cell.solution:
+    # #     pygame.draw.rect(sc, solution_color, (x+size//6, y+size//6, size-size//3, size-size//3), size//10)
+    #     if cell.walls['top']:
+    #         pygame.draw.line(sc, wall_color, (x,y), (x+size,y), line_width)
+    #     if cell.walls['left']:
+    #         pygame.draw.line(sc, wall_color, (x,y), (x,y+size), line_width)
+    #     if cell.walls['bottom']:
+    #         pygame.draw.line(sc, wall_color, (x,y+size), (x+size,y+size), line_width)
+    #     if cell.walls['right']:
+    #         pygame.draw.line(sc, wall_color, (x+size,y), (x+size,y+size), line_width)
 
-        # if cell.path['top']:
-        #     pygame.draw.line(sc, solution_color, (x+half_size,y), (x+half_size,y+half_size), line_width_2)
-        # if cell.path['left']:
-        #     pygame.draw.line(sc, solution_color, (x,y+half_size), (x+half_size,y+half_size), line_width_2)
-        # if cell.path['bottom']:
-        #     pygame.draw.line(sc, solution_color, (x+half_size,y+half_size), (x+half_size,y+size), line_width_2)
-        # if cell.path['right']:
-        #     pygame.draw.line(sc, solution_color, (x+half_size,y+half_size), (x+size,y+half_size), line_width_2)
+    #     # if cell.path['top']:
+    #     #     pygame.draw.line(sc, solution_color, (x+half_size,y), (x+half_size,y+half_size), line_width_2)
+    #     # if cell.path['left']:
+    #     #     pygame.draw.line(sc, solution_color, (x,y+half_size), (x+half_size,y+half_size), line_width_2)
+    #     # if cell.path['bottom']:
+    #     #     pygame.draw.line(sc, solution_color, (x+half_size,y+half_size), (x+half_size,y+size), line_width_2)
+    #     # if cell.path['right']:
+    #     #     pygame.draw.line(sc, solution_color, (x+half_size,y+half_size), (x+size,y+half_size), line_width_2)
 
-    def draw_current_cell(cell:Cell):
-        x, y = cell.x * size, cell.y * size
-        pygame.draw.rect(sc, current_cell_color, (x+line_width, y+line_width, size-line_width, size-line_width))
+    # def draw_current_cell(cell:Cell):
+    #     x, y = cell.x * size, cell.y * size
+    #     pygame.draw.rect(sc, current_cell_color, (x+line_width, y+line_width, size-line_width, size-line_width))
 
     def checkCell(x, y):
         find_index = lambda x, y: x + y * cols
@@ -195,10 +195,10 @@ def mazeMaker(sc,n):
                     #if event.key == pygame.K_SPACE:
                         #find_solution = True
 
-        [draw(cell) for cell in grid_cells]
+        #[draw(cell) for cell in grid_cells]
         current_cell.visited = True
     
-        draw_current_cell(current_cell)
+        #draw_current_cell(current_cell)
 
         if not paused:
         
@@ -248,7 +248,7 @@ def mazeMaker(sc,n):
                     #print(path)
                     #pygame.time.delay(5000)
                     
-                    info=[sc,cellGrid,rows]
+                    info=[cellGrid,rows]
                     pygame.display.flip()
                     return info
 
