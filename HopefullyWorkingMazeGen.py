@@ -182,22 +182,26 @@ def mazeMaker(n):
     print("declared grid_cells")
 
     cellGrid=[]
-    cellGrid = [[] for _ in range(rows + 4)]
-    for i in range(rows+4):
-        for j in range(cols+4):
+    cellGrid = [[] for _ in range(rows + 5)]
+    for i in range(rows+5):
+        for j in range(cols+5):
             curr=Cell(i,j)
             cellGrid[i].append(curr)
-    for i in range(rows-4,rows):
-        for j in range(cols-4,cols):
+    for i in range(rows,rows+5):
+        for j in range(cols,cols+5):
             curr=Cell(i,j)
+            if i==0 and j==0:
+                print("Changed the origin")
+                cellGrid[i][j].walls['left']=False
+                cellGrid[i][j].walls['right'] = False
+                cellGrid[i][j].walls['top']=False
+                cellGrid[i][j].walls['bottom'] = False
             curr.walls = {'top':False, 'left':False, 'bottom':False, 'right':False}
             curr.path = {'top':False, 'left':False, 'bottom':False, 'right':False}
             curr.visited = True
             curr.solution = False
 
-    
-
-    print("declared cell grid with padding",len(cellGrid))
+    #print("declared cell grid with padding",len(cellGrid))
 
     while True:
         for event in pygame.event.get():
@@ -262,14 +266,6 @@ def mazeMaker(n):
                     
                     info=[cellGrid]
                     pygame.display.flip()
-                    f=open("debug.txt",'w')
-                    z=1
-                    for a in cellGrid:
-                        for b in a:
-                            f.write(f"{b.walls}  ")
-                            if z%3==0:
-                                f.write('\n')
-                    f.close
                     return info
 
         #pygame.display.flip()

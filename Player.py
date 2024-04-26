@@ -18,14 +18,19 @@ class Player:
 
     
 def renderPlayer(player:Player,position,screen):
-    pygame.draw.rect(screen,BLACK,rect=(position[0],position[1],40,40))
+    pygame.draw.rect(screen,BLACK,rect=(position[0],position[1],39,39))
     
-def playerMove(player,keyPressed):
+def playerMove(player,keyPressed,presentWalls):
+    #print(presentWalls)
     if keyPressed[pygame.K_LEFT]:
-        player.x -= 40
+        if presentWalls[3]!=1:
+            player.x -= 1
     if keyPressed[pygame.K_RIGHT]:
-        player.x += 40
+        if presentWalls[1]!=1:
+            player.x += 1
     if keyPressed[pygame.K_UP]:
-        player.y -= 40
+        if presentWalls[0]!=1:
+            player.y -= 1
     if keyPressed[pygame.K_DOWN]:
-        player.y += 40
+        if presentWalls[2]!=1:
+            player.y += 1
