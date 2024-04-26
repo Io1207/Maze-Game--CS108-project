@@ -42,8 +42,11 @@ def gameRunner():
                         #print(playerName)
                         player=Player(0,0,playerName)
                     ##Start Button
-                    if WIDTH/2-65<mousePos[0]<WIDTH/2+65 and 660<mousePos[1]<710:
-                        start=True
+                    # if WIDTH/2-65<mousePos[0]<WIDTH/2+65 and 660<mousePos[1]<710:
+                    #     start=True
+
+                    #Choosing Avatar
+
 
                 
                     # if (n==1 or n==2 or n==3) and entered and start:

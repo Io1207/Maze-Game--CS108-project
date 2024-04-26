@@ -1,5 +1,5 @@
 from utils import *
-from HopefullyWorkingMazeGen import *
+#from HopefullyWorkingMazeGen import *
 
 
 def screenChange(n):
@@ -8,9 +8,9 @@ def screenChange(n):
         
         screen=pygame.display.set_mode((WIDTH,HEIGHT))
         bg=pygame.image.load("Images\startBG (1).jpg")
-        
+
         screen.blit(bg,(0,0))
-        
+        pygame.draw.rect(screen,BLACK,((WIDTH//2-LOGO_EDGE/2)-5,5,LOGO_EDGE+10,LOGO_EDGE+10))
         screen.blit(LOGO,(((WIDTH//2)-(LOGO_EDGE/2)),10))   #blitting the logo
         #Displaying text
         font=pygame.font.Font('freesansbold.ttf',28)
@@ -120,12 +120,12 @@ def screenChange(n):
     #     playscreen=pygame.display.set_mode((WIDTH,HEIGHT))
         
 
-    # elif n==5:  #Waiting Screen
-    #     waitScreen=pygame.display.set_mode((WAITWIDTH,WAITHEIGHT))
-    #     waitScreen.blit(WAITIMG,(0,0))
-    #     pygame.display.flip()
-    #     info=[waitScreen]
-    #     n=7
+    elif n==5:  #Waiting Screen
+        waitScreen=pygame.display.set_mode((WAITWIDTH,WAITHEIGHT))
+        waitScreen.blit(WAITIMG,(0,0))
+        pygame.display.flip()
+        info=[waitScreen]
+        n=7
         ##Please add a button here saying that the player has read the instructions so that we can use it to
         #switch to viewport once we're back in game.py
     return info

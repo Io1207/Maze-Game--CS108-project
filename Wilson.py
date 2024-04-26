@@ -194,28 +194,28 @@ class WilsonMazeGenerator:
 
 ################
                 
-gen = WilsonMazeGenerator(10,10)
-gen.generate_maze()
-print("Maze Generated")
-gen.solve_maze()
-print("Solution Generated")
-quest = input("Do you want the solution shown? (Y/N) ")
-gen.show_solution(quest.strip().lower() == "y")
-print(gen)
-#reversing the solGrid
-for i in gen.grid:
-    print(i)
-intermed=[[] for i in range(gen.rows)]
-for i in range(gen.rows):
-    for j in range(gen.cols):
-        intermed[i].append(gen.grid[i][gen.rows-j-1])
-gen.grid=intermed
-del intermed
-print(len(gen.grid))
-arr=gen.displayAptGrid()
-for i in gen.grid:
-    print(i)
-for i in arr:
-    print(i)
-for i in gen.solution:
-    print(i)
+# gen = WilsonMazeGenerator(10,10)
+# gen.generate_maze()
+# print("Maze Generated")
+# gen.solve_maze()
+# print("Solution Generated")
+# quest = 'y'
+# gen.show_solution(quest.strip().lower() == "y")
+# print(gen)
+# #reversing the solGrid
+# for i in gen.grid:
+#     print(i)
+# intermed=[[] for i in range(gen.rows)]
+# for i in range(gen.rows):
+#     for j in range(gen.cols):
+#         intermed[i].append(gen.grid[i][gen.rows-j-1])
+# gen.grid=intermed
+# del intermed
+# print(len(gen.grid))
+# arr=gen.displayAptGrid()
+# for i in gen.grid:
+#     print(i)
+# for i in arr:
+#     print(i)
+# for i in gen.solution:
+#     print(i)
