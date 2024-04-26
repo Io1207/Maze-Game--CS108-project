@@ -7,7 +7,9 @@ def screenChange(n):
         #screen=pygame.display.set_mode((WIDTH,HEIGHT))
         
         screen=pygame.display.set_mode((WIDTH,HEIGHT))
-        screen.fill(color=(0,0,0))
+        bg=pygame.image.load("Images\startBG (1).jpg")
+        
+        screen.blit(bg,(0,0))
         
         screen.blit(LOGO,(((WIDTH//2)-(LOGO_EDGE/2)),10))   #blitting the logo
         #Displaying text
@@ -82,48 +84,48 @@ def screenChange(n):
         #print(playerName)
         info=[playerName,screen]  
 
-    elif n==1:     #EasyLevel
-        #print("entered screenChange")
-        playscreen=pygame.display.set_mode((MAZEWIDTH,MAZEHEIGHT))
-        playscreen.fill(EASYBACKG)
-        #screenChange(5)
-        pygame.display.set_icon(LOGO)
-        mazeMakerInfo=mazeMaker(1)
-        #mazeMaker(playScreen)
-        #pygame.display.flip()
-        info=[mazeMakerInfo]
+    # elif n==1:     #EasyLevel
+    #     #print("entered screenChange")
+    #     playscreen=pygame.display.set_mode((MAZEWIDTH,MAZEHEIGHT))
+    #     playscreen.fill(EASYBACKG)
+    #     #screenChange(5)
+    #     pygame.display.set_icon(LOGO)
+    #     # mazeMakerInfo=mazeMaker(1)
+    #     #mazeMaker(playScreen)
+    #     #pygame.display.flip()
+    #     # info=[mazeMakerInfo]
     
-    elif n==2:    #MedLevel
-        #print("entered screenChange")
-        playscreen=pygame.display.set_mode((MAZEWIDTH,MAZEHEIGHT))
-        playscreen.fill(MEDIUMBACKG)
-        #screenChange(5)
-        pygame.display.set_icon(LOGO)
-        mazeMakerInfo=mazeMaker(2)
-        info=[mazeMakerInfo]
-        #pygame.display.flip()
+    # elif n==2:    #MedLevel
+    #     #print("entered screenChange")
+    #     playscreen=pygame.display.set_mode((MAZEWIDTH,MAZEHEIGHT))
+    #     playscreen.fill(MEDIUMBACKG)
+    #     #screenChange(5)
+    #     pygame.display.set_icon(LOGO)
+    #     # mazeMakerInfo=mazeMaker(2)
+    #     # info=[mazeMakerInfo]
+    #     #pygame.display.flip()
     
-    elif n==3:   #Hard Level
+    # elif n==3:   #Hard Level
         #print("entered screenChange")
-        playscreen=pygame.display.set_mode((MAZEWIDTH,MAZEHEIGHT))
-        playscreen.fill(HARDBACKG)
+        # playscreen=pygame.display.set_mode((MAZEWIDTH,MAZEHEIGHT))
+        # playscreen.fill(HARDBACKG)
         #screenChange(5)
-        pygame.display.set_icon(LOGO)
-        mazeMakerInfo=mazeMaker(3)
+        # pygame.display.set_icon(LOGO)
+        # mazeMakerInfo=mazeMaker(3)
         #pygame.display.flip()
-        info=[mazeMakerInfo]
+        # info=[mazeMakerInfo]
     
-    elif n==4:   #Ending Screen
-        #print("entered screenChange")
-        playscreen=pygame.display.set_mode((WIDTH,HEIGHT))
+    # elif n==4:   #Ending Screen
+    #     #print("entered screenChange")
+    #     playscreen=pygame.display.set_mode((WIDTH,HEIGHT))
         
 
-    elif n==5:  #Waiting Screen
-        waitScreen=pygame.display.set_mode((WAITWIDTH,WAITHEIGHT))
-        waitScreen.blit(WAITIMG,(0,0))
-        pygame.display.flip()
-        info=[waitScreen]
-        n=7
+    # elif n==5:  #Waiting Screen
+    #     waitScreen=pygame.display.set_mode((WAITWIDTH,WAITHEIGHT))
+    #     waitScreen.blit(WAITIMG,(0,0))
+    #     pygame.display.flip()
+    #     info=[waitScreen]
+    #     n=7
         ##Please add a button here saying that the player has read the instructions so that we can use it to
         #switch to viewport once we're back in game.py
     return info

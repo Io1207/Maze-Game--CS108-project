@@ -54,31 +54,22 @@ def mazeMaker(n):
     x, y = 0, 0 # Starting position
     
     if n==1:
-        cols,rows=20,20
-        size=20
+        cols,rows=30,30
         wall_color=EASYMAZE
     if n==2:
-        cols, rows=25,25
-        size=20
+        cols, rows=35,35
         wall_color=MEDIUMMAZE
     if n==3:
-        cols,rows=30,30
-        size=20
+        cols,rows=40,40
         wall_color=HARDMAZE
-    half_size = size//2
-    line_width = 1
-    line_width_2 = 1
-    visited_color = BLACK
     
-    current_cell_color = pygame.Color('saddlebrown')
-    solution_color = pygame.Color('darkslategray')
     flag = True
     find_solution = True
     paused = False
     fps=100000
 
     #Add the text for when the person wants to start, maybe include some instructions 
-    #and tell them that it is also taking time to make the maze, they're not the only deciding factors her
+    #and tell them that it is also taking time to make the maze, they're not the only deciding factors here
 
     # def draw(cell:Cell):
     #     x, y = cell.x * size, cell.y * size
@@ -134,7 +125,7 @@ def mazeMaker(n):
     def remove_walls(current:Cell, next:Cell):
         x1,y1=current.x,current.y
         x2,y2=next.x,next.y
-        dx, dy = current.x - next.x, current.y - next.y
+        dx, dy = x1 - x2, y1 - y2
         if dx == 1:
             current.walls['left'] = False
             next.walls['right'] = False
@@ -155,7 +146,15 @@ def mazeMaker(n):
             next.walls['top'] = False
             cellGrid[x1][y1].walls['bottom']=False
             cellGrid[x2][y2].walls['top'] = False
-
+        if x1==0 and y1==0:
+            print("Changed the origin's walls")
+            cellGrid[x1][y1].walls['bottom']=False
+            cellGrid[x1][y1].walls['right']=False
+            cellGrid[x1+1][y1].walls['top']=False
+            cellGrid[x1][y1+1].walls['left']=False
+            print(cellGrid[1][0].walls)
+            print(cellGrid[0][1].walls)
+            print(cellGrid[0][0].walls)
 
     def add_solution_path(previous:Cell, current:Cell):
         dx, dy = current.x - previous.x, current.y - previous.y
@@ -190,12 +189,7 @@ def mazeMaker(n):
     for i in range(rows,rows+5):
         for j in range(cols,cols+5):
             curr=Cell(i,j)
-            if i==0 and j==0:
-                print("Changed the origin")
-                cellGrid[i][j].walls['left']=False
-                cellGrid[i][j].walls['right'] = False
-                cellGrid[i][j].walls['top']=False
-                cellGrid[i][j].walls['bottom'] = False
+            print("changed padding cells' walls")
             curr.walls = {'top':False, 'left':False, 'bottom':False, 'right':False}
             curr.path = {'top':False, 'left':False, 'bottom':False, 'right':False}
             curr.visited = True
@@ -207,14 +201,9 @@ def mazeMaker(n):
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit()
-                #if event.type == pygame.KEYDOWN:
-                    #if event.key == pygame.K_SPACE:
-                        #find_solution = True
-
-        #[draw(cell) for cell in grid_cells]
+                
         current_cell.visited = True
-    
-        #draw_current_cell(current_cell)
+     
 
         if not paused:
         
@@ -236,7 +225,6 @@ def mazeMaker(n):
                 if find_solution:
                     
                     if solution:
-                        # print("Tried solution loop")
                         previous_cell = current_cell
                         current_cell = solution[-1]
                         current_cell.solution = True
@@ -244,36 +232,18 @@ def mazeMaker(n):
                         path.append((current_cell.x,current_cell.y))
                         solution.pop()
                     else:
-                        # print("Tillandi2")
                         previous_cell = current_cell
                         current_cell = grid_cells[0]
                         add_solution_path(previous_cell, current_cell)
                     if current_cell.x==0 and current_cell.y==0:
-                        #print("Tillandi")
                         find_solution=False
-                        #pygame.display.flip()
-                    #print(solution[0])
                 elif (current_cell.x==0 and current_cell.y==0):
-                    #print("Tillandi3")
-                    #print(current_cell.x,current_cell.y)
-                    #pygame.display.flip()
                     path.append((0,0))
                     path=list(reversed(path))
-                    #print(path)
                     directionBcozTAAsked(path)
-                    #print(path)
-                    #pygame.time.delay(5000)
-                    
                     info=[cellGrid]
                     pygame.display.flip()
                     return info
 
         #pygame.display.flip()
         clock.tick(fps)
-
-
-# if __name__=="__main__":
-#     path=[(0,0),(2,5)]
-#     directionBcozTAAsked(path)
-#sc=pygame.display.set_mode((900,760))    
-#mazeMaker(sc,3)

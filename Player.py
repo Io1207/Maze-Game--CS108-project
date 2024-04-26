@@ -25,12 +25,20 @@ def playerMove(player,keyPressed,presentWalls):
     if keyPressed[pygame.K_LEFT]:
         if presentWalls[3]!=1:
             player.x -= 1
+        else:
+            print(presentWalls,"Collision detected")
     if keyPressed[pygame.K_RIGHT]:
         if presentWalls[1]!=1:
             player.x += 1
+        else:
+            print(presentWalls,"Collision detected")
     if keyPressed[pygame.K_UP]:
         if presentWalls[0]!=1:
             player.y -= 1
+        else:
+            print(presentWalls,"Collision detected")
     if keyPressed[pygame.K_DOWN]:
         if presentWalls[2]!=1:
             player.y += 1
+        else:
+            print(presentWalls,"Collision detected")

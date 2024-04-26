@@ -2,6 +2,7 @@ from screenChange import *
 #from mazeGenImp import *
 from utils import *
 from gameLoopDisplay import *
+from Wilson import *
 
 def gameRunner():
     n=0
@@ -44,16 +45,24 @@ def gameRunner():
                     if WIDTH/2-65<mousePos[0]<WIDTH/2+65 and 660<mousePos[1]<710:
                         start=True
 
-                    if (n==1 or n==2 or n==3) and entered and start:
-                        amIonStartScreen=False
-                        info=screenChange(n) # info=[[mazeScreen,arrayWithCellInfo,rows]]
-                        n=7
-                        amIOnPlayScreen=True
-                        print("came back to game.py")
                 
-            if amIOnPlayScreen:
-                assert (n==7)
-                playLoop(player,info[0])
+                    # if (n==1 or n==2 or n==3) and entered and start:
+                    #     amIonStartScreen=False
+                    #     info=screenChange(n) # info=[[mazeScreen,arrayWithCellInfo,rows]]
+                    #     n=7
+                    #     amIOnPlayScreen=True
+                    #     print("came back to game.py")
+
+            if n==1:
+                cols,rows=40,40
+            if n==2:
+                cols, rows=60,60
+            if n==3:
+                cols,rows=90,90
+
+            # if amIOnPlayScreen:
+            #     myMaze=WilsonMazeGenerator(cols,rows)
+            #     myMaze.generate_maze()
                 
                 # if n==5:
                 #     mazeDisplay(screen)

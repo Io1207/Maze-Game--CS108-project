@@ -5,17 +5,19 @@ from Player import *
             #     playerMove(keysPressed)
 
 def playLoop(player:Player,info):
-    print("Entered the display")
     running=True
     viewPort=pygame.display.set_mode((400,700))
     arr=info[0]
+    f=open("arr.txt",'w')
+    f.write(str(arr))
+    f.close()
     while running:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 exit()
             if event.type==pygame.KEYDOWN:
                 keyPressed=pygame.key.get_pressed()
-                #print(f"({player.x},{player.y})",end="  ")
+                print(f"({presentGrid[4][4]})",end="  ")
                 playerMove(player,keyPressed,presentGrid[4][4])
 
         ####   
@@ -40,6 +42,12 @@ def playLoop(player:Player,info):
                     walltuple=(walltuple[0],walltuple[1],walltuple[2],1)
                 presentGrid[i].append(walltuple)
         width=1
+        f=open("debug.txt",'w')
+        for i in range(10):
+            for j in range(10):
+                f.write(str(presentGrid[i][j]))
+                f.write('\n')
+        f.close()
         for i in range(10):
             for j in range(10):
                 infople=presentGrid[i][j]
