@@ -132,19 +132,29 @@ def mazeMaker(n):
 
 
     def remove_walls(current:Cell, next:Cell):
+        x1,y1=current.x,current.y
+        x2,y2=next.x,next.y
         dx, dy = current.x - next.x, current.y - next.y
         if dx == 1:
             current.walls['left'] = False
             next.walls['right'] = False
+            cellGrid[x1][y1].walls['left']=False
+            cellGrid[x2][y2].walls['right'] = False
         if dx == -1:
             current.walls['right'] = False
             next.walls['left'] = False
+            cellGrid[x1][y1].walls['right']=False
+            cellGrid[x2][y2].walls['left'] = False
         if dy == 1:
             current.walls['top'] = False
             next.walls['bottom'] = False
+            cellGrid[x1][y1].walls['top']=False
+            cellGrid[x2][y2].walls['bottom'] = False
         if dy == -1:
             current.walls['bottom'] = False
             next.walls['top'] = False
+            cellGrid[x1][y1].walls['bottom']=False
+            cellGrid[x2][y2].walls['top'] = False
 
 
     def add_solution_path(previous:Cell, current:Cell):
@@ -184,6 +194,8 @@ def mazeMaker(n):
             curr.path = {'top':False, 'left':False, 'bottom':False, 'right':False}
             curr.visited = True
             curr.solution = False
+
+    
 
     print("declared cell grid with padding",len(cellGrid))
 
@@ -248,8 +260,16 @@ def mazeMaker(n):
                     #print(path)
                     #pygame.time.delay(5000)
                     
-                    info=[cellGrid,rows]
+                    info=[cellGrid]
                     pygame.display.flip()
+                    f=open("debug.txt",'w')
+                    z=1
+                    for a in cellGrid:
+                        for b in a:
+                            f.write(f"{b.walls}  ")
+                            if z%3==0:
+                                f.write('\n')
+                    f.close
                     return info
 
         #pygame.display.flip()

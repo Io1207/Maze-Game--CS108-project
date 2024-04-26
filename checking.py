@@ -1,11 +1,5 @@
-grid=[]
-for i in range(5):
-    grid.append([])
-for i in range(5):
-    for j in range(5):
-        grid[i].append(j)
-
-print(grid)
+if 0:
+    print("Hare Krishna")
 
 '''# Initialize an empty 2D list
 matrix = []

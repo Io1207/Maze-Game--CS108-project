@@ -1,16 +1,16 @@
 from utils import *
 
 class Player:
-    def __init__(self,x,pos1,pos2):#x will be the avatar chosen by clicking the avatar buttons at the start
-        if x==1:
-            self.standImage=pygame.image.load(AV1NORMAL)
-        elif x==2:
-            self.standImage=pygame.image.load(AV2NORMAL)
-        elif x==3:
-            self.standImage=pygame.image.load(AV3NORMAL)
+    def __init__(self,pos1,pos2,name):#x will be the avatar chosen by clicking the avatar buttons at the start
+        # if x==1:
+        #     self.standImage=pygame.image.load(AV1NORMAL)
+        # elif x==2:
+        #     self.standImage=pygame.image.load(AV2NORMAL)
+        # elif x==3:
+        #     self.standImage=pygame.image.load(AV3NORMAL)
         self.x=pos1
         self.y=pos2
-        
+        self.name=name
     
     def __str__(self,name):
         return f"({self.x},{self.y})"
