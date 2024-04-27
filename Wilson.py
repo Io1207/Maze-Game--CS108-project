@@ -187,17 +187,17 @@ class WilsonMazeGenerator:
             next=self.solution[i+1]
             dx,dy=curr[0]-next[0],curr[1]-next[1]
             if dx == -1:
-                direction.append('D')
-            elif dx == 1:
-                direction.append('U')
-            elif dy == -1:
                 direction.append('R')
-            elif dy == 1:
+            elif dx == 1:
                 direction.append('L')
+            elif dy == -1:
+                direction.append('D')
+            elif dy == 1:
+                direction.append('U')
             f=open("Path.txt",'w')
             for i in range(len(direction)):
                 f.write(str(direction[i])+" ")
-                if i%10==0:
+                if i%10==0 and i!=0:
                     f.write('\n')
             f.close()
         del direction

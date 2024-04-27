@@ -23,7 +23,7 @@ def makeWalls(i,j,screen:pygame.Surface,size):
     screen.blit(WALLS,(i*size,j*size))
     # print("wall ",end="")
 
-def playLoop(player:Player,info):
+def playLoop(player:Player,info,a):
     running=True
     viewPort=pygame.display.set_mode((500,750))
     x=rand.randint(1,5)
@@ -44,9 +44,9 @@ def playLoop(player:Player,info):
                 exit()
             if event.type==pygame.KEYDOWN:
                 keyPressed=pygame.key.get_pressed()
-                print("Before: ", player.x, player.y)
+                # print("Before: ", player.x, player.y)
                 playerMove(player,keyPressed,presentGrid)
-                print("After: ", player.x, player.y)
+                # print("After: ", player.x, player.y)
         
             chooseBG(x,viewPort)
 
@@ -70,7 +70,7 @@ def playLoop(player:Player,info):
                     if cellStatus==0:
                             makeWalls(j,i,viewPort,cellsize)
                         # pygame.draw.line(viewPort,WHITE,(((i+1)*cellsize)-1,((j)*cellsize)-1),(((i+1)*cellsize-1),((j+1)*cellsize-1)),width)
-            renderPlayer(player,(200,200),viewPort)
+            renderPlayer(player,(200,200),viewPort,a)
             pygame.display.flip()
         ####
     return    

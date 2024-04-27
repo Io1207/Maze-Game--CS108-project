@@ -9,7 +9,6 @@ def gameRunner():
     entered=False
     
     infoStart=screenChange(n)
-    startSceen=infoStart[1]
     playerName=infoStart[0]
     running=True
     start=False 
@@ -20,6 +19,7 @@ def gameRunner():
     counter=0
     mazegrid=0
     player=0
+    a=0
 
     while running:
         for event in pygame.event.get():
@@ -31,13 +31,14 @@ def gameRunner():
             if amIOnStartScreen:
                 if event.type==pygame.MOUSEBUTTONDOWN:
                     mousePos=pygame.mouse.get_pos()
-                    if WIDTH/2-55<mousePos[0]<WIDTH/2+55 and 440<mousePos[1]<490:
+                    if WIDTH/2-55<mousePos[0]<WIDTH/2+55 and 370<mousePos[1]<430:
                     #print("Hello") this was just for debugging
                         n=1
-                    elif WIDTH/2-55<mousePos[0]<WIDTH/2+55 and 510<mousePos[1]<560:
+                    elif WIDTH/2-55<mousePos[0]<WIDTH/2+55 and 440<mousePos[1]<500:
                         n=2
-                    elif WIDTH/2-55<mousePos[0]<WIDTH/2+55 and 580<mousePos[1]<630:
+                    elif WIDTH/2-55<mousePos[0]<WIDTH/2+55 and 510<mousePos[1]<570:
                         n=3
+
                 
                     ##Taking name
                     if len(playerName)>0:
@@ -50,6 +51,39 @@ def gameRunner():
 
                     #Choosing Avatar
 
+
+                if event.type==pygame.MOUSEBUTTONDOWN:
+                    mousePos=pygame.mouse.get_pos()
+                    if 780<mousePos[0]<880:
+                        if 370<mousePos[1]<470:
+                            a=1
+                        elif 475<mousePos[1]<575:
+                            a=5
+                    if 885<mousePos[0]<985:
+                        if 370<mousePos[1]<470:
+                            a=2
+                        elif 475<mousePos[1]<575:
+                            a=6
+                    if 990<mousePos[0]<1090:
+                        if 370<mousePos[1]<470:
+                            a=3
+                        elif 475<mousePos[1]<575:
+                            a=7
+                    if 1095<mousePos[0]<1195:
+                        if 370<mousePos[1]<470:
+                            a=4
+                        elif 475<mousePos[1]<575:
+                            a=8
+                    if 833<mousePos[0]<933 and 580<mousePos[1]<680:
+                        a=9
+                    elif 938<mousePos[0]<1038 and 580<mousePos[1]<680:
+                        a=10
+                    if 1043<mousePos[0]<1143 and 580<mousePos[1]<680:
+                        a=11
+
+                    print(a)
+
+                    
                     if n==1:
                         cols,rows=40,40
                     if n==2:
@@ -57,10 +91,11 @@ def gameRunner():
                     if n==3:
                         cols,rows=90,90
 
-                    if entered and (n==1 or n==2 or n==3):
+                    if entered and (n==1 or n==2 or n==3) and a!=0:
                         amIOnStartScreen=False
                         screenChange(5)
                         amIOnPlayScreen=True
+                        print("Coming out of wait screen")
 
                     if amIOnPlayScreen and counter==0:
                         myMaze=WilsonMazeGenerator(cols,rows)
@@ -83,7 +118,7 @@ def gameRunner():
                     #     print("came back to game.py")
 
             if amIOnPlayScreen and n==7:
-                playLoop(player,mazegrid)
+                playLoop(player,mazegrid,a)
 
             
             

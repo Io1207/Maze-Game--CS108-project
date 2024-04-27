@@ -8,8 +8,8 @@ WHITE=(255,255,255)
 BLACK=(0,0,0)
 
 #MUAHAHA=pygame.image.load("Images\\start")
-WAITWIDTH=1200
-WAITHEIGHT=675
+WAITWIDTH=1350
+WAITHEIGHT=759
 
 MAZEWIDTH=700
 MAZEHEIGHT=700
@@ -52,26 +52,73 @@ FPS=10000
 #######
 #Avatars
 HARRYPATH="Images\Characters\Harry.png"
+HARRY=pygame.image.load(HARRYPATH)
 
 HERMPATH="Images\Characters\hermione.png"
+HERM=pygame.image.load(HERMPATH)
 
-RONPATH="Images\Characters\ron-removebg.png"
+RONPATH="Images\\Characters\\ron-removebg.png"
+RON=pygame.image.load(RONPATH)
 
 DUMBPATH="Images\Characters\Dumbledore.png"
+DUMB=pygame.image.load(DUMBPATH)
 
 DRACOPATH="Images\Characters\Draco.png"
+DRACO=pygame.image.load(DRACOPATH)
 
 DOBBYPATH="Images\Characters\Dobby.png"
+DOBBY=pygame.image.load(DOBBYPATH)
 
 HAGRIDPATH="Images\Characters\Hagrid.png"
+HAGRID=pygame.image.load(HAGRIDPATH)
 
 LUNAPATH="Images\Characters\Luna.png"
+LUNA=pygame.image.load(LUNAPATH)
 
 MCGPATH="Images\Characters\McG.png"
+MCG=pygame.image.load(MCGPATH)
 
 SIRIUSPATH="Images\Characters\Sirius.png"
+SIRIUS=pygame.image.load(SIRIUSPATH)
 
 SNAPEPATH="Images\Characters\Snape.png"
+SNAPE=pygame.image.load(SNAPEPATH)
+
 #######
+
+##Avatars for buttons
+SHARRYPATH="Images\AvatarSelSize\Harry.png"
+AHARRY=pygame.image.load(SHARRYPATH)
+
+SHERMPATH="Images\AvatarSelSize\hermione.png"
+AHERM=pygame.image.load(SHERMPATH)
+
+SRONPATH="Images\\AvatarSelSize\\ron-removebg.png"
+ARON=pygame.image.load(SRONPATH)
+
+SDUMBPATH="Images\AvatarSelSize\Dumbledore.png"
+ADUMB=pygame.image.load(SDUMBPATH)
+
+SDRACOPATH="Images\AvatarSelSize\Draco.png"
+ADRACO=pygame.image.load(SDRACOPATH)
+
+SDOBBYPATH="Images\AvatarSelSize\Dobby.png"
+ADOBBY=pygame.image.load(SDOBBYPATH)
+
+SHAGRIDPATH="Images\AvatarSelSize\Hagrid.png"
+AHAGRID=pygame.image.load(SHAGRIDPATH)
+
+SLUNAPATH="Images\AvatarSelSize\Luna.png"
+ALUNA=pygame.image.load(SLUNAPATH)
+
+SMCGPATH="Images\AvatarSelSize\McG.png"
+AMCG=pygame.image.load(SMCGPATH)
+
+SSIRIUSPATH="Images\AvatarSelSize\Sirius.png"
+ASIRIUS=pygame.image.load(SSIRIUSPATH)
+
+SSNAPEPATH="Images\AvatarSelSize\Snape.png"
+ASNAPE=pygame.image.load(SSNAPEPATH)
+
 
 PATHFILE=("Path.txt")

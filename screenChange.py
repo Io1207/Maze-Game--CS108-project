@@ -17,7 +17,9 @@ def screenChange(n):
         
         #Displaying text
         font=pygame.font.Font('freesansbold.ttf',28)
-        welcome=font.render("Welcome to Enigma Escape",True, WHITE)
+        font1=font2=pygame.font.SysFont('freesansbold.ttf',40)
+        font2=pygame.font.SysFont('arial.ttf',28)
+        welcome=font2.render("Welcome to Enigma Escape",True, WHITE)
         level1=font.render("Level1",True,WHITE)
         level2=font.render("Level2",True,WHITE)
         level3=font.render("Level3",True,WHITE)
@@ -25,29 +27,56 @@ def screenChange(n):
         chooseAvatar=font.render("3. Choose your Avatar",True,WHITE)
         
         #Welcome Message
-        screen.blit(welcome,(((WIDTH//2)-175),330))
+        screen.blit(welcome,(((WIDTH//2)-125),286))
         pygame.display.set_icon(LOGO)
         pygame.display.set_caption("Enigma Escape")
 
         #Creating buttons for level
         #choosetext
-        screen.blit(chooseLev,(WIDTH/2-150,400))
+        screen.blit(chooseLev,(WIDTH/2-150,330))
         #level1
-        buttonEasy=pygame.Rect(WIDTH/2-55,440,110,50)
+        buttonEasy=pygame.Rect(WIDTH/2-55,370,110,60)
         pygame.draw.rect(screen,color=EASYBACKG,rect=buttonEasy)
-        screen.blit(level1,(WIDTH/2-45,451))
+        screen.blit(level1,(WIDTH/2-45,386))
         #level2
-        buttonMedium=pygame.Rect(WIDTH/2-55,510,110,50)
+        buttonMedium=pygame.Rect(WIDTH/2-55,440,110,60)
         pygame.draw.rect(screen,color=MEDIUMBACKG,rect=buttonMedium)
-        screen.blit(level2,(WIDTH/2-45,521))
+        screen.blit(level2,(WIDTH/2-45,456))
         #level3
-        buttonHard=pygame.Rect(WIDTH/2-55,580,110,50)
+        buttonHard=pygame.Rect(WIDTH/2-55,510,110,60)
         pygame.draw.rect(screen,color=HARDBACKG,rect=buttonHard)
-        screen.blit(level3,(WIDTH/2-45,591))
+        screen.blit(level3,(WIDTH/2-45,525))
 
         ##Creating buttons for avatars
-        screen.blit(chooseAvatar,(850,400))
+        screen.blit(chooseAvatar,(850,330))
         #pygame.draw.rect(screen,WHITE,(850,500,309,50))
+        #
+        pygame.draw.rect(screen,WHITE,(780,370,100,100))
+        screen.blit(AHARRY,(780,370,100,100))
+        pygame.draw.rect(screen,WHITE,(885,370,100,100))
+        screen.blit(AHERM,(885,370,100,100))
+        pygame.draw.rect(screen,WHITE,(990,370,100,100))
+        screen.blit(ARON,(990,370,100,100))
+        pygame.draw.rect(screen,WHITE,(1095,370,100,100))
+        screen.blit(ADUMB,(1095,370,100,100))
+        #
+        pygame.draw.rect(screen,WHITE,(780,475,100,100))
+        screen.blit(AMCG,(780,475,100,100))
+        pygame.draw.rect(screen,WHITE,(885,475,100,100))
+        screen.blit(ADRACO,(885,475,100,100))
+        pygame.draw.rect(screen,WHITE,(990,475,100,100))
+        screen.blit(ADOBBY,(990,475,100,100))
+        pygame.draw.rect(screen,WHITE,(1095,475,100,100))
+        screen.blit(ALUNA,(1095,475,100,100))
+        #
+        pygame.draw.rect(screen,WHITE,(833,580,100,100))
+        screen.blit(ASIRIUS,(833,580,100,100))
+        pygame.draw.rect(screen,WHITE,(938,580,100,100))
+        screen.blit(AHAGRID,(938,580,100,100))
+        pygame.draw.rect(screen,WHITE,(1043,580,100,100))
+        screen.blit(ASNAPE,(1043,580,100,100))
+        #
+        
 
         #Start Button
         buttonStart=pygame.Rect(WIDTH/2-65,660,130,50)
@@ -58,11 +87,11 @@ def screenChange(n):
 
         #Creating text box for name of player
         todisplay = font.render("1. Enter Your Name", True, WHITE)
-        screen.blit(todisplay, [70, 400])
+        screen.blit(todisplay, (70, 330))
         pygame.display.update() 
         notentered = True
         playerName=''
-        input_text = pygame.Rect(60, 450, 150, 40)
+        input_text = pygame.Rect(60, 370, 150, 40)
         while notentered:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -103,14 +132,31 @@ def screenChange(n):
         pygame.display.flip()
 
         #Start Button
-        buttonStart=pygame.Rect(WIDTH/2-65,660,130,50)
-        pygame.draw.rect(screen,color="blue",rect=buttonStart)
+        font=pygame.font.Font('freesansbold.ttf',28)
+        buttonStart=pygame.Rect(WAITWIDTH/2-65,660,130,50)
+        pygame.draw.rect(waitScreen,color="blue",rect=buttonStart)
         start=font.render("START",True,WHITE)
-        screen.blit(start,(WIDTH/2-40,671))
+        waitScreen.blit(start,(WIDTH/2-40,671))
         pygame.display.flip()
-
-        info=[waitScreen]
-        n=7
+        count=0
+        running=True
+        while running:
+            for event in pygame.event.get():    
+                if event.type==pygame.QUIT:
+                    exit()
+                if event.type==pygame.MOUSEBUTTONDOWN:
+                    mousePos=pygame.mouse.get_pos()
+                    #print(mousePos)
+                    if WIDTH/2-65<mousePos[0]<WIDTH/2+65 and 660<mousePos[1]<710:
+                            #print("entered the break block")
+                            running=False
+                            break
+                    else:
+                        continue
+                count+=1
+        del count,running
+        info=[]
+        #info=[waitScreen]
         ##Please add a button here saying that the player has read the instructions so that we can use it to
         #switch to viewport once we're back in game.py
     return info
