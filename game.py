@@ -18,6 +18,9 @@ def gameRunner():
     amIOnEndScreen=False
     amIOnPlayScreen=False
     counter=0
+    mazegrid=0
+    player=0
+
     while running:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -67,6 +70,8 @@ def gameRunner():
                         #print(myMaze.solution)
                         myMaze.Directions()
                         counter +=1
+                        n=7
+                        mazegrid=myMaze.displayAptGrid()
                         # if n==5:
                         #     mazeDisplay(screen)
                 
@@ -76,6 +81,9 @@ def gameRunner():
                     #     n=7
                     #     amIOnPlayScreen=True
                     #     print("came back to game.py")
+
+            if amIOnPlayScreen and n==7:
+                playLoop(player,mazegrid)
 
             
             

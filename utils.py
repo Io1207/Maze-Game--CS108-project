@@ -17,18 +17,29 @@ MAZEHEIGHT=700
 WAITIMGPATH="Images\\WaitScreenBetter.jpg"
 WAITIMG=pygame.image.load(WAITIMGPATH)
 
-#Easy Maze Settings
-EASYMAZE=(0,255,0)
+BG1PATH="Images\OIP.jpg"
+BG1=pygame.image.load(BG1PATH)
+
+BG2PATH="Images\Gryffindor (1).jpg"
+BG2=pygame.image.load(BG2PATH)
+
+BG3PATH="Images\Raven.jpg"
+BG3=pygame.image.load(BG3PATH)
+
+BG4PATH="Images\hufflepuff.jpg"
+BG4=pygame.image.load(BG4PATH)
+
+BG5PATH="Images\slytherin.jpg"
+BG5=pygame.image.load(BG5PATH)
+
+WALLSPATH="Images\wallsRed.jpg"
+WALLS=pygame.image.load(WALLSPATH)
+
 EASYBACKG=(125,227,125)
 
-
-MEDIUMMAZE=(40,195,255) #bluish something
 MEDIUMBACKG=(20,82,163)
 
-HARD=(194,36,194)
-
 HARDBACKG=pygame.Color('darkslategray')
-HARDMAZE=pygame.Color('darkorange')
 
 LOGO_EDGE=300
 LOGO=pygame.image.load("Images\\logoreduced.jpg")

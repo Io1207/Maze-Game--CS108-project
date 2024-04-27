@@ -21,24 +21,24 @@ class WilsonMazeGenerator:
         self.start = (0,0)
         self.end = (self.rows-1,self.cols-1)
 
-    def __str__(self):
-        arr=[]
+    # def __str__(self):
+    #     arr=[]
 
-        out = "##"*(self.cols+1)+"\n"
-        for i in range(self.rows):
-            out += "#"
-            for j in range(self.cols):
-                if self.grid[i][j] == 0:
-                    out += "##"
-                else:
-                    if self.showSolution:
-                        out += "  "
-                    elif (i,j) in self.solution:
-                        out += "__"
-                    else:
-                        out += "  "
-            out += "#\n"
-        return out + "##"*(self.cols+1)
+    #     out = "##"*(self.cols+1)+"\n"
+    #     for i in range(self.rows):
+    #         out += "#"
+    #         for j in range(self.cols):
+    #             if self.grid[i][j] == 0:
+    #                 out += "##"
+    #             else:
+    #                 if self.showSolution:
+    #                     out += "  "
+    #                 elif (i,j) in self.solution:
+    #                     out += "__"
+    #                 else:
+    #                     out += "  "
+    #         out += "#\n"
+    #     return out + "##"*(self.cols+1)
 
     def displayAptGrid(self):
         arr=[]
@@ -59,11 +59,11 @@ class WilsonMazeGenerator:
     # def get_grid(self):
     #     return self.grid
 
-    def get_solution(self):
-        return self.solution
+    # def get_solution(self):
+    #     return self.solution
 
-    def show_solution(self,show):
-        self.showSolution = show
+    # def show_solution(self,show):
+    #     self.showSolution = show
     
     def generate_maze(self):
         # reset the grid before generation
@@ -136,17 +136,20 @@ class WilsonMazeGenerator:
             self.solution.append(current)
 
         self.path = dict()
-                
+
+    #Part of maze generation DO NOT MODIFY            
     def get_next_cell(self,cell,dirNum,fact):
         dirTup = self.directions[dirNum]
         return (cell[0]+fact*dirTup[0],cell[1]+fact*dirTup[1])
 
+    #Part of maze generation DO NOT MODIFY
     def is_valid_direction(self,cell,dirNum):
         newCell = self.get_next_cell(cell,dirNum,2)
         tooSmall = newCell[0] < 0 or newCell[1] < 0
         tooBig = newCell[0] >= self.rows or newCell[1] >= self.cols
         return not (tooSmall or tooBig)
 
+    #Part of maze generation DO NOT MODIFY
     def initialize_grid(self):
         for i in range(self.rows):
             for j in range(self.cols):
@@ -165,16 +168,16 @@ class WilsonMazeGenerator:
     def cut(self,cell):
         self.grid[cell[0]][cell[1]] = 1
 
-    def revGrid(self):
-        #reversing the solGrid
-        for i in self.grid:
-            print(i)
-        intermed=[[] for i in range(self.rows)]
-        for i in range(self.rows):
-            for j in range(self.cols):
-                intermed[i].append(self.grid[i][self.rows-j-1])
-        self.grid=intermed
-        del intermed
+    # def revGrid(self):
+    #     #reversing the solGrid
+    #     for i in self.grid:
+    #         print(i)
+    #     intermed=[[] for i in range(self.rows)]
+    #     for i in range(self.rows):
+    #         for j in range(self.cols):
+    #             intermed[i].append(self.grid[i][self.rows-j-1])
+    #     self.grid=intermed
+    #     del intermed
 
     def Directions(self):
         length=len(self.solution)
@@ -199,7 +202,7 @@ class WilsonMazeGenerator:
             f.close()
         del direction
 ################
-                
+#Debugging statements               
 # gen = WilsonMazeGenerator(10,10)
 # gen.generate_maze()
 # print("Maze Generated")
