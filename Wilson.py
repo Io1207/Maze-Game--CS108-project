@@ -192,6 +192,33 @@ class WilsonMazeGenerator:
     def cut(self,cell):
         self.grid[cell[0]][cell[1]] = 1
 
+    def revGrid(self):
+        #reversing the solGrid
+        for i in self.grid:
+            print(i)
+        intermed=[[] for i in range(self.rows)]
+        for i in range(self.rows):
+            for j in range(self.cols):
+                intermed[i].append(self.grid[i][self.rows-j-1])
+        self.grid=intermed
+        del intermed
+
+    def directions(self):
+        length=len(self.solution)
+        direction=[]
+        for i in range(length):
+            curr=self.solution[i]
+            next=self.solution[i+1]
+            dx,dy=curr[0]-next[0],curr[1]-next[1]
+            if dx == -1:
+                direction.append('R')
+            elif dx == 1:
+                direction.append('L')
+            elif dy == -1:
+                direction.append('D')
+            elif dy == 1:
+                direction.append('U')
+        return direction
 ################
                 
 # gen = WilsonMazeGenerator(10,10)

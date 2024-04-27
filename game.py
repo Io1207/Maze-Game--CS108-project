@@ -47,7 +47,9 @@ def gameRunner():
 
                     #Choosing Avatar
 
-
+                    if entered and (n==1 or n==2 or n==3) and avatarChosen:
+                        screenChange(5)
+                        amIOnPlayScreen=True
                 
                     # if (n==1 or n==2 or n==3) and entered and start:
                     #     amIonStartScreen=False
@@ -63,9 +65,12 @@ def gameRunner():
             if n==3:
                 cols,rows=90,90
 
-            # if amIOnPlayScreen:
-            #     myMaze=WilsonMazeGenerator(cols,rows)
-            #     myMaze.generate_maze()
+            if amIOnPlayScreen:
+                myMaze=WilsonMazeGenerator(cols,rows)
+                myMaze.generate_maze()
+                myMaze.solve_maze()
+                myMaze.revGrid()
+                
                 
                 # if n==5:
                 #     mazeDisplay(screen)
