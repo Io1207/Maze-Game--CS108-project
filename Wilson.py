@@ -21,24 +21,9 @@ class WilsonMazeGenerator:
         self.start = (0,0)
         self.end = (self.rows-1,self.cols-1)
 
-    # def __str__(self):
-    #     arr=[]
-
-    #     out = "##"*(self.cols+1)+"\n"
-    #     for i in range(self.rows):
-    #         out += "#"
-    #         for j in range(self.cols):
-    #             if self.grid[i][j] == 0:
-    #                 out += "##"
-    #             else:
-    #                 if self.showSolution:
-    #                     out += "  "
-    #                 elif (i,j) in self.solution:
-    #                     out += "__"
-    #                 else:
-    #                     out += "  "
-    #         out += "#\n"
-    #     return out + "##"*(self.cols+1)
+    def collectiblesGen():
+        #in easy, 40*40
+        print()
 
     def displayAptGrid(self):
         arr=[]

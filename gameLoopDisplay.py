@@ -27,7 +27,8 @@ def playLoop(player:Player,info,a):
     running=True
     viewPort=pygame.display.set_mode((500,750))
     x=rand.randint(1,5)
-    
+    pygame.mixer.music.load('BackGTheme.mp3')
+    pygame.mixer.music.play(-1)
     arr=info
     cellsize=50
     f=open('debug.txt','w')
@@ -49,7 +50,7 @@ def playLoop(player:Player,info,a):
                 # print("After: ", player.x, player.y)
         
             chooseBG(x,viewPort)
-
+            
             presentGrid = [[] for i in range(10)]
             for i in range(10):
                 for j in range(10):
@@ -71,6 +72,7 @@ def playLoop(player:Player,info,a):
                             makeWalls(j,i,viewPort,cellsize)
                         # pygame.draw.line(viewPort,WHITE,(((i+1)*cellsize)-1,((j)*cellsize)-1),(((i+1)*cellsize-1),((j+1)*cellsize-1)),width)
             renderPlayer(player,(200,200),viewPort,a)
+            pygame.draw.rect(viewPort,BLACK,(0,550,500,80))
             pygame.display.flip()
         ####
     return    

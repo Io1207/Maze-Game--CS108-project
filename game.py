@@ -81,7 +81,7 @@ def gameRunner():
                     if 1043<mousePos[0]<1143 and 580<mousePos[1]<680:
                         a=11
 
-                    print(a)
+                    # print(a)
 
                     
                     if n==1:
@@ -95,7 +95,7 @@ def gameRunner():
                         amIOnStartScreen=False
                         screenChange(5)
                         amIOnPlayScreen=True
-                        print("Coming out of wait screen")
+                        # print("Coming out of wait screen")
 
                     if amIOnPlayScreen and counter==0:
                         myMaze=WilsonMazeGenerator(cols,rows)
