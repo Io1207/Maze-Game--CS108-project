@@ -27,7 +27,7 @@ def playLoop(player:Player,info):
     running=True
     viewPort=pygame.display.set_mode((500,750))
     x=rand.randint(1,5)
-    chooseBG(x,viewPort)
+    
     arr=info
     cellsize=50
     f=open('debug.txt','w')
@@ -48,17 +48,20 @@ def playLoop(player:Player,info):
                 playerMove(player,keyPressed,presentGrid)
                 print("After: ", player.x, player.y)
         
+            chooseBG(x,viewPort)
+
             presentGrid = [[] for i in range(10)]
             for i in range(10):
                 for j in range(10):
                     curr=(player.x-4+i,player.y-4+j)
                     presentGrid[i].append(arr[curr[0]][curr[1]])
 
-            f=open("arr.txt",'w')
-            for i in range(10):
-                f.write(str(presentGrid[i]))
-                f.write('\n')
-            f.close()
+            #Debugging
+            # f=open("arr.txt",'w')
+            # for i in range(10):
+            #     f.write(str(presentGrid[i]))
+            #     f.write('\n')
+            # f.close()
 
             for i in range(10):
                 for j in range(10):

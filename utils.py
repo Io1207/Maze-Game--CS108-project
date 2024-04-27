@@ -14,22 +14,22 @@ WAITHEIGHT=675
 MAZEWIDTH=700
 MAZEHEIGHT=700
 
-WAITIMGPATH="Images\\WaitScreenBetter.jpg"
+WAITIMGPATH="Images\\BAckGrounds\\WaitScreenBetter.jpg"
 WAITIMG=pygame.image.load(WAITIMGPATH)
 
-BG1PATH="Images\OIP.jpg"
+BG1PATH="Images\\BAckGrounds\\OIP.jpg"
 BG1=pygame.image.load(BG1PATH)
 
-BG2PATH="Images\Gryffindor (1).jpg"
+BG2PATH="Images\\BAckGrounds\\Gryffindor (1).jpg"
 BG2=pygame.image.load(BG2PATH)
 
-BG3PATH="Images\Raven.jpg"
+BG3PATH="Images\\BAckGrounds\\Raven.jpg"
 BG3=pygame.image.load(BG3PATH)
 
-BG4PATH="Images\hufflepuff.jpg"
+BG4PATH="Images\\BackGrounds\\hufflepuff.jpg"
 BG4=pygame.image.load(BG4PATH)
 
-BG5PATH="Images\slytherin.jpg"
+BG5PATH="Images\\BackGrounds\\slytherin.jpg"
 BG5=pygame.image.load(BG5PATH)
 
 WALLSPATH="Images\wallsRed.jpg"
@@ -47,10 +47,29 @@ LOGO=pygame.image.load("Images\\logoreduced.jpg")
 
 FPS=10000
 
-AV1NORMAL="hjcb"
+#######
+#Avatars
+HARRYPATH="Images\Characters\Harry.png"
 
-AV2NORMAL="hjcb"
+HERMPATH="Images\Characters\hermione.png"
 
-AV3NORMAL="hjcb"
+RONPATH="Images\Characters\ron-removebg.png"
+
+DUMBPATH="Images\Characters\Dumbledore.png"
+
+DRACOPATH="Images\Characters\Draco.png"
+
+DOBBYPATH="Images\Characters\Dobby.png"
+
+HAGRIDPATH="Images\Characters\Hagrid.png"
+
+LUNAPATH="Images\Characters\Luna.png"
+
+MCGPATH="Images\Characters\McG.png"
+
+SIRIUSPATH="Images\Characters\Sirius.png"
+
+SNAPEPATH="Images\Characters\Snape.png"
+#######
 
 PATHFILE=("Path.txt")

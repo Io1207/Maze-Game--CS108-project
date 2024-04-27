@@ -42,14 +42,14 @@ def playerMove(player,keyPressed,grid):
     #print(grid)
     #player's position in the grid is always (4,4)
     if keyPressed[pygame.K_LEFT]:
-        if grid[4][3]!=0:
+        if grid[3][4]!=0:
             player.x -= 1
     if keyPressed[pygame.K_RIGHT]:
-        if grid[4][5]!=0:
+        if grid[5][4]!=0:
             player.x += 1
     if keyPressed[pygame.K_UP]:
-        if grid[3][4]!=0:
+        if grid[4][3]!=0:
             player.y -= 1
     if keyPressed[pygame.K_DOWN]:
-        if grid[5][4]!=0:
+        if grid[4][5]!=0:
             player.y += 1
