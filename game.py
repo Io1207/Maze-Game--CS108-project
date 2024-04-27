@@ -47,9 +47,28 @@ def gameRunner():
 
                     #Choosing Avatar
 
+                    if n==1:
+                        cols,rows=40,40
+                    if n==2:
+                        cols, rows=60,60
+                    if n==3:
+                        cols,rows=90,90
+
                     if entered and (n==1 or n==2 or n==3):
+                        amIOnStartScreen=False
                         screenChange(5)
                         amIOnPlayScreen=True
+
+                    if amIOnPlayScreen and counter==0:
+                        myMaze=WilsonMazeGenerator(cols,rows)
+                        myMaze.generate_maze()
+                        myMaze.solve_maze()
+                        #print(myMaze)
+                        #print(myMaze.solution)
+                        myMaze.Directions()
+                        counter +=1
+                        # if n==5:
+                        #     mazeDisplay(screen)
                 
                     # if (n==1 or n==2 or n==3) and entered and start:
                     #     amIonStartScreen=False
@@ -58,22 +77,6 @@ def gameRunner():
                     #     amIOnPlayScreen=True
                     #     print("came back to game.py")
 
-            if n==1:
-                cols,rows=40,40
-            if n==2:
-                cols, rows=60,60
-            if n==3:
-                cols,rows=90,90
-
-            if amIOnPlayScreen and counter==0:
-                myMaze=WilsonMazeGenerator(cols,rows)
-                myMaze.generate_maze()
-                myMaze.solve_maze()
-                #print(myMaze)
-                #print(myMaze.solution)
-                myMaze.Directions()
-                counter +=1
-                # if n==5:
-                #     mazeDisplay(screen)
+            
             
 gameRunner()

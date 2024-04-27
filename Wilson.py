@@ -3,23 +3,19 @@ import random
 class WilsonMazeGenerator:
 
     def __init__(self,height,width):     
-        self.cols = 2*(width//2) + 1   # Make width odd
-        self.rows = 2*(height//2) + 1 # Make height odd
-        # grid of cells
+        self.cols = 2*(width//2) + 1  
+        self.rows = 2*(height//2) + 1 
+        
         self.grid = [[0 for j in range(self.cols)] for i in range(self.rows)]
 
-        # declare instance variable
-        self.visited = []    # visited cells
-        self.unvisited = []  # unvisited cells
-        self.path = dict()   # random walk path
+        self.visited = []    
+        self.unvisited = []  
+        self.path = dict()   
 
-        # valid directions in random walk
         self.directions = [(0,1),(1,0),(0,-1),(-1,0)]
 
-        # indicates whether a maze is generated
         self.generated = False
 
-        # shortest solution
         self.solution = []
         self.showSolution = False
         self.start = (0,0)
@@ -79,90 +75,67 @@ class WilsonMazeGenerator:
         self.visited.append(current)
         self.cut(current)
 
-        # loop until all cells have been visited
+        
         while len(self.unvisited) > 0:
-            # choose a random cell to start the walk (Step 2)
             first = self.unvisited[random.randint(0,len(self.unvisited)-1)]
             current = first
-            # loop until the random walk reaches a visited cell
             while True:
-                # choose direction to walk (Step 3)
                 dirNum = random.randint(0,3)
-                # check if direction is valid. If not, choose new direction
                 while not self.is_valid_direction(current,dirNum):
                     dirNum = random.randint(0,3)
-                # save the cell and direction in the path
                 self.path[current] = dirNum
-                # get the next cell in that direction
                 current = self.get_next_cell(current,dirNum,2)
-                if (current in self.visited): # visited cell is reached (Step 5)
+                if (current in self.visited): 
                     break
 
-            current = first # go to start of path
-            # loop until the end of path is reached
+            current = first 
             while True:
-                # add cell to visited and cut into the maze
                 self.visited.append(current)
-                self.unvisited.remove(current) # (Step 6.b)
+                self.unvisited.remove(current) 
                 self.cut(current)
 
-                # follow the direction to next cell (Step 6.a)
                 dirNum = self.path[current]
                 crossed = self.get_next_cell(current,dirNum,1)
-                self.cut(crossed) # cut crossed edge
+                self.cut(crossed) 
 
                 current = self.get_next_cell(current,dirNum,2)
-                if (current in self.visited): # end of path is reached
-                    self.path = dict() # clear the path
+                if (current in self.visited): 
+                    self.path = dict() 
                     break
                 
         self.generated = True
 
     def solve_maze(self):
-        # if there is no maze to solve, cut the method
         if not self.generated:
             return None
 
-        # initialize with empty path at starting cell
         self.path = dict()
         current = self.start
 
-        # loop until the ending cell is reached
         while True:
             while True:
-                # choose valid direction
-                # must remain in the grid
-                # also must not cross a wall
                 dirNum = random.randint(0,3)
                 adjacent = self.get_next_cell(current,dirNum,1)
                 if self.is_valid_direction(current,dirNum):
                     hasWall = (self.grid[adjacent[0]][adjacent[1]] == 0)
                     if not hasWall:
                         break
-            # add cell and direction to path
             self.path[current] = dirNum
 
-            # get next cell
             current = self.get_next_cell(current,dirNum,2)
             if current == self.end: 
-                break # break if ending cell is reached
+                break 
 
-        # go to start of path
         current = self.start
         self.solution.append(current)
-        # loop until end of path is reached
         while not (current == self.end):
-            dirNum = self.path[current] # get direction
-            # add adjacent and crossed cells to solution
+            dirNum = self.path[current] 
             crossed = self.get_next_cell(current,dirNum,1)
             current = self.get_next_cell(current,dirNum,2)
             self.solution.append(crossed)
             self.solution.append(current)
 
         self.path = dict()
-                
-    ## Private Methods ##
-    ## Do Not Use Outside This Class ##
                 
     def get_next_cell(self,cell,dirNum,fact):
         dirTup = self.directions[dirNum]
