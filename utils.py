@@ -14,16 +14,18 @@ WAITHEIGHT=675
 MAZEWIDTH=700
 MAZEHEIGHT=700
 
-WAITIMGPATH="Images\\BAckGrounds\\WaitScreenBetter.jpg"
+###Background Paths
+
+WAITIMGPATH="Images\\BackGrounds\\WaitScreenBetter.jpg"
 WAITIMG=pygame.image.load(WAITIMGPATH)
 
-BG1PATH="Images\\BAckGrounds\\OIP.jpg"
+BG1PATH="Images\\BackGrounds\\OIP.jpg"
 BG1=pygame.image.load(BG1PATH)
 
-BG2PATH="Images\\BAckGrounds\\Gryffindor (1).jpg"
+BG2PATH="Images\\BackGrounds\\Gryffindor (1).jpg"
 BG2=pygame.image.load(BG2PATH)
 
-BG3PATH="Images\\BAckGrounds\\Raven.jpg"
+BG3PATH="Images\\BackGrounds\\Raven.jpg"
 BG3=pygame.image.load(BG3PATH)
 
 BG4PATH="Images\\BackGrounds\\hufflepuff.jpg"
