@@ -22,8 +22,8 @@ class WilsonMazeGenerator:
         # shortest solution
         self.solution = []
         self.showSolution = False
-        self.start = (self.rows-1,0)
-        self.end = (0,self.cols-1)
+        self.start = (0,0)
+        self.end = (self.rows-1,self.cols-1)
 
     def __str__(self):
         arr=[]
@@ -35,10 +35,10 @@ class WilsonMazeGenerator:
                 if self.grid[i][j] == 0:
                     out += "##"
                 else:
-                    if not self.showSolution:
+                    if self.showSolution:
                         out += "  "
                     elif (i,j) in self.solution:
-                        out += "**"
+                        out += "__"
                     else:
                         out += "  "
             out += "#\n"
@@ -203,22 +203,28 @@ class WilsonMazeGenerator:
         self.grid=intermed
         del intermed
 
-    def directions(self):
+    def Directions(self):
         length=len(self.solution)
         direction=[]
-        for i in range(length):
+        for i in range(length-2):
             curr=self.solution[i]
             next=self.solution[i+1]
             dx,dy=curr[0]-next[0],curr[1]-next[1]
             if dx == -1:
-                direction.append('R')
-            elif dx == 1:
-                direction.append('L')
-            elif dy == -1:
                 direction.append('D')
-            elif dy == 1:
+            elif dx == 1:
                 direction.append('U')
-        return direction
+            elif dy == -1:
+                direction.append('R')
+            elif dy == 1:
+                direction.append('L')
+            f=open("Path.txt",'w')
+            for i in range(len(direction)):
+                f.write(str(direction[i])+" ")
+                if i%10==0:
+                    f.write('\n')
+            f.close()
+        del direction
 ################
                 
 # gen = WilsonMazeGenerator(10,10)

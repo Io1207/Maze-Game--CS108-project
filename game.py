@@ -17,7 +17,7 @@ def gameRunner():
     amIOnStartScreen=True
     amIOnEndScreen=False
     amIOnPlayScreen=False
-
+    counter=0
     while running:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -47,7 +47,7 @@ def gameRunner():
 
                     #Choosing Avatar
 
-                    if entered and (n==1 or n==2 or n==3) and avatarChosen:
+                    if entered and (n==1 or n==2 or n==3):
                         screenChange(5)
                         amIOnPlayScreen=True
                 
@@ -65,13 +65,14 @@ def gameRunner():
             if n==3:
                 cols,rows=90,90
 
-            if amIOnPlayScreen:
+            if amIOnPlayScreen and counter==0:
                 myMaze=WilsonMazeGenerator(cols,rows)
                 myMaze.generate_maze()
                 myMaze.solve_maze()
-                myMaze.revGrid()
-                
-                
+                #print(myMaze)
+                #print(myMaze.solution)
+                myMaze.Directions()
+                counter +=1
                 # if n==5:
                 #     mazeDisplay(screen)
             
