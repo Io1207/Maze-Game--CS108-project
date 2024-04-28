@@ -6,3 +6,7 @@ excuseMe 5
 sample1 6
 jj 0
 hello 850
+Black 821.0
+hi 0
+hh 867
+Vishwajeeth 0

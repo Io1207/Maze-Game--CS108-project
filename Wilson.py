@@ -7,18 +7,15 @@ class WilsonMazeGenerator:
         self.rows = 2*(height//2) + 1 
         
         self.grid = [[0 for j in range(self.cols)] for i in range(self.rows)]
-
         self.visited = []    
         self.unvisited = []  
         self.path = dict()  
-        self.collectibles=0 
-
         self.directions = [(0,1),(1,0),(0,-1),(-1,0)]
-
         self.generated = False
-
         self.solution = []
         self.showSolution = False
+
+        self.collectibles=0 
         self.start = (0,0)
         self.end = (self.rows-1,self.cols-1)
 

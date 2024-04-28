@@ -18,7 +18,7 @@ def ScoreCalculation(n,playerEnd):
     knutB=10*playerEnd[0][4]
     galleonB=30*playerEnd[0][5]
     sickleB=20*playerEnd[0][6]
-    score=timeB+wandB+knutB+galleonB+sickleB
+    score=int(timeB+wandB+knutB+galleonB+sickleB)
     return score
 
 def topFive(arr):
@@ -200,7 +200,7 @@ def screenChange(difficult,n,playerEnd,navigation,rows):
         f.readline()
         for x in f.readlines():
             a=x.split()
-            arr.append((a[0],int(a[1])))
+            arr.append((a[0],int(float(a[1]))))
         f.close()
 
         bestFive=topFive(arr)

@@ -1,7 +1,7 @@
 from utils import *
 from Player import *
 import random as rand
-import sys
+import time
 
 def chooseBG(x:int,screen:pygame.Surface):
     if x==1:
@@ -54,7 +54,7 @@ def playLoop(player:Player,info,collect,a,n,solution):
     arr=info
     arr2=collect
     cellsize=50
-    fps=720
+    fps=360
     detectCollision=True
     # f=open('debug.txt','w')
     # for i in range(len(arr)):
@@ -62,22 +62,28 @@ def playLoop(player:Player,info,collect,a,n,solution):
     #     f.write('\n')
     # f.close()
     clock=pygame.time.Clock()
-    time=0
+    timeS=0
     # dt=0
     if n==1:
-        time=210
+        timeS=195
         # dt=clock.tick(59)/16
     if n==2:
-        time=300
+        timeS=300
         # dt=clock.tick(60)/17
     if n==3:
-        time=360
+        timeS=360
         # dt=clock.tick(60)/17
+    dt=clock.tick(fps)/1000
     # f=open("arr.txt",'w')
     # f.write(str(arr))
     # f.close()
-    # f=open("debug.txt",'w')
+    # f=open("arr.txt",'w')
+    
+    font=pygame.font.SysFont('arial',40)
+    timeDisplay=font.render(str(timeS),True,WHITE)
+    start=time.time()
     while running:
+        
         for event in pygame.event.get():
             if event.type!=pygame.MOUSEMOTION:
                 if event.type==pygame.QUIT:
@@ -90,7 +96,7 @@ def playLoop(player:Player,info,collect,a,n,solution):
                         detectCollision=not detectCollision
                         print(detectCollision)
                     if not keyPressed[pygame.K_m]:
-                        playerMove(player,keyPressed,presentGrid,collect,time,solution,n)
+                        playerMove(player,keyPressed,presentGrid,collect,timeS,solution,n)
                     # print("After: ", player.x, player.y)
             
                 chooseBG(x,viewPort)
@@ -123,27 +129,43 @@ def playLoop(player:Player,info,collect,a,n,solution):
                             # pygame.draw.line(viewPort,WHITE,(((i+1)*cellsize)-1,((j)*cellsize)-1),(((i+1)*cellsize-1),((j+1)*cellsize-1)),width)
                         if collectibleStatus!=0:
                             collectibles(i,j,viewPort,cellsize,collectibleStatus)
-                    
-        # if time>0:
-        #     time=time-dt
-            
-        #Debugging
-        # f=open("debug.txt",'w')
-        # f.write(str(time)+"  ")
-        # f.write('\n')
-        # f.close()
-        renderPlayer(player,(200,200),viewPort,a)
-        pygame.draw.rect(viewPort,BLACK,(0,475,500,80))
+          
+            #Debugging
+            # f=open("debug.txt",'w')
+            # f.close()
+            renderPlayer(player,(200,200),viewPort,a)
+            pygame.draw.rect(viewPort,BLACK,(0,475,500,80))
+            if (player.x,player.y)==(len(info)-6,len(info)-6):
+                # print("End game")
+            # if (player.x,player.y)==(1,0) or (player.x,player.y)==(0,1):
+                running=False
+                break
+        pygame.draw.rect(viewPort,BLACK,(130,480,200,50))
+        viewPort.blit(timeDisplay,(180,480))
+        # pygame.display.update((150,460,200,40))
         pygame.display.flip()
-        if (player.x,player.y)==(len(info)-6,len(info)-6):
-            # print("End game")
-        # if (player.x,player.y)==(1,0) or (player.x,player.y)==(0,1):
-            running=False
-            break
-        clock.tick(fps)
+            # clock.tick(fps)
+        # f.write(str(time)+"  ")
 
-        # clock.tick(FPS)
-        ####
+        # f.write('\n')
+        # print(str(time))
+            # clock.tick(FPS)
+            ####
+        
+        end=time.time()
+        timeShow=timeS-(end-start)
+        # print(end-start)
+        timeMin=timeShow//60
+        sec=timeShow-timeMin*60
+        if 10>sec:
+            sec='0'+str(int(sec))
+        else:
+            sec=str(int(sec))
+        Time=str(int(timeMin))+":"+sec
+        if timeMin<1:
+            timeDisplay=font.render(Time,True,'red')
+        else:
+            timeDisplay=font.render(Time,True,WHITE)
     # f.close()
     return [player.getPlayerReso() ,time]
     
