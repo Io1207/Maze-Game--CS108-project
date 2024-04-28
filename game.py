@@ -109,7 +109,7 @@ def gameRunner():
                         counter +=1
                         screen=2
                         mazegrid=myMaze.displayAptGrid()
-                        print(myMaze.collectibles)
+                        # print(myMaze.collectibles)
                         # if n==5:
                         #     mazeDisplay(screen)
                 

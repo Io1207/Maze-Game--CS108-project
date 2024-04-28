@@ -12,6 +12,12 @@ class Player:
         self.y=pos2
         self.name=name
         self.wandAttacks=5
+        self.knuts=0
+        self.galleons=0
+        self.sickles=0
+        self.time=0
+        self.portKey=False
+
 
     
     def __str__(self,name):
@@ -59,7 +65,7 @@ def renderPlayer(player:Player,position,screen,a):
 
     
     
-def playerMove(player,keyPressed,grid):
+def playerMove(player:Player,keyPressed,grid,collectibles):
     #print(grid)
     #player's position in the grid is always (4,4)
     if keyPressed[pygame.K_LEFT]:
@@ -74,3 +80,5 @@ def playerMove(player,keyPressed,grid):
     if keyPressed[pygame.K_DOWN]:
         if grid[4][5]!=0:
             player.y += 1
+    a=collectibles[player.x][player.y]
+    

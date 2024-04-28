@@ -39,7 +39,6 @@ def collectibles(i,j,screen:pygame.Surface,cellsize,status):
         screen.blit(TURNER,(i*cellsize,j*cellsize))
     if status=='W':
         screen.blit(WAND,(i*cellsize,j*cellsize))
-    pygame.display.flip()
 
 
 def makeWalls(i,j,screen:pygame.Surface,size):
@@ -51,17 +50,17 @@ def playLoop(player:Player,info,collect,a,n):
     viewPort=pygame.display.set_mode((500,750))
     x=rand.randint(1,5)
     pygame.mixer.music.load('BackGTheme.mp3')
-    pygame.mixer.music.play(-1)
+    pygame.mixer.music.play(3)
     arr=info
     arr2=collect
     cellsize=50
-    print()
+    fps=720
     # f=open('debug.txt','w')
     # for i in range(len(arr)):
     #     f.write(str(arr[i]))
     #     f.write('\n')
     # f.close()
-    # clock=pygame.time.Clock()
+    clock=pygame.time.Clock()
     # time=0
     # dt=0
     # if n==1:
@@ -79,44 +78,45 @@ def playLoop(player:Player,info,collect,a,n):
     # f=open("debug.txt",'w')
     while running:
         for event in pygame.event.get():
-            if event.type==pygame.QUIT:
-                exit()
-            if event.type==pygame.KEYDOWN:
-                keyPressed=pygame.key.get_pressed()
-                # print("Before: ", player.x, player.y)
-                playerMove(player,keyPressed,presentGrid)
-                # print("After: ", player.x, player.y)
-        
-            chooseBG(x,viewPort)
+            # if event.type!=pygame.MOUSEMOTION:
+                if event.type==pygame.QUIT:
+                    exit()
+                if event.type==pygame.KEYDOWN and (event.key in [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN]):
+                    keyPressed=pygame.key.get_pressed()
+                    # print("Before: ", player.x, player.y)
+                    playerMove(player,keyPressed,presentGrid,collect)
+                    # print("After: ", player.x, player.y)
             
-            presentGrid = [[] for i in range(10)]
-            for i in range(10):
-                for j in range(10):
-                    curr=(player.x-4+i,player.y-4+j)
-                    presentGrid[i].append(arr[curr[0]][curr[1]])
+                chooseBG(x,viewPort)
+                
+                presentGrid = [[] for i in range(10)]
+                for i in range(10):
+                    for j in range(10):
+                        curr=(player.x-4+i,player.y-4+j)
+                        presentGrid[i].append(arr[curr[0]][curr[1]])
 
-            presentCollectibles = [[] for i in range(10)]
-            for i in range(10):
-                for j in range(10):
-                    curr=(player.x-4+i,player.y-4+j)
-                    presentCollectibles[i].append(arr2[curr[0]][curr[1]])
-            #Debugging
-            # f=open("arr.txt",'w')
-            # for i in range(10):
-            #     f.write(str(presentGrid[i]))
-            #     f.write('\n')
-            # f.close()
+                presentCollectibles = [[] for i in range(10)]
+                for i in range(10):
+                    for j in range(10):
+                        curr=(player.x-4+i,player.y-4+j)
+                        presentCollectibles[i].append(arr2[curr[0]][curr[1]])
+                #Debugging
+                # f=open("arr.txt",'w')
+                # for i in range(10):
+                #     f.write(str(presentGrid[i]))
+                #     f.write('\n')
+                # f.close()
 
-            for i in range(10):
-                for j in range(10):
-                    cellStatus=presentGrid[j][i]
-                    collectibleStatus=presentCollectibles[i][j]
-                    #print(cellStatus)
-                    if cellStatus==0:
-                        makeWalls(j,i,viewPort,cellsize)
-                        # pygame.draw.line(viewPort,WHITE,(((i+1)*cellsize)-1,((j)*cellsize)-1),(((i+1)*cellsize-1),((j+1)*cellsize-1)),width)
-                    if collectibleStatus!=0:
-                        collectibles(i,j,viewPort,cellsize,collectibleStatus)
+                for i in range(10):
+                    for j in range(10):
+                        cellStatus=presentGrid[j][i]
+                        collectibleStatus=presentCollectibles[i][j]
+                        #print(cellStatus)
+                        if cellStatus==0:
+                            makeWalls(j,i,viewPort,cellsize)
+                            # pygame.draw.line(viewPort,WHITE,(((i+1)*cellsize)-1,((j)*cellsize)-1),(((i+1)*cellsize-1),((j+1)*cellsize-1)),width)
+                        if collectibleStatus!=0:
+                            collectibles(i,j,viewPort,cellsize,collectibleStatus)
                     
         # if time>0:
         #     time=time-dt
@@ -129,6 +129,7 @@ def playLoop(player:Player,info,collect,a,n):
         renderPlayer(player,(200,200),viewPort,a)
         pygame.draw.rect(viewPort,BLACK,(0,475,500,80))
         pygame.display.flip()
+        clock.tick(fps)
         # clock.tick(FPS)
         ####
     # f.close()

@@ -30,7 +30,8 @@ class WilsonMazeGenerator:
             for j in range(self.cols):
                 if arr[i][j]==1:
                     listOfPathTiles.append((i,j))
-
+        listOfPathTiles.pop(listOfPathTiles.index((0,0)))
+        listOfPathTiles.pop(listOfPathTiles.index((self.end[0],self.end[1])))
         x=len(listOfPathTiles)
         print(x)
 
