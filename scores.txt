@@ -4,4 +4,5 @@ Bye 0
 New 0
 excuseMe 5
 sample1 6
-Snape 0
+jj 0
+hello 850

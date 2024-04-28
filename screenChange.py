@@ -162,7 +162,15 @@ def screenChange(difficult,n,playerEnd,navigation,rows):
         Message1="Well, atleast you didn't get expelled!"
         Message=font.render(Message1,True,BLACK)
         herm="-Hermione, maybe"
-        if playerEnd[1]>=0 and [playerEnd[0][1],playerEnd[0][2]]==[0,0]:
+        rows=0
+        if difficult==1:
+            rows=40
+        if difficult==2:
+            rows=60
+        if difficult==3:
+            rows=90
+
+        if playerEnd[1]>=0 and [playerEnd[0][1],playerEnd[0][2]]==[rows,rows]:
             victory=True
             print("Victory")
         if victory:
