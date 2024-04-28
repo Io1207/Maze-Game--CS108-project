@@ -8,11 +8,11 @@ def gameRunner():
     n=0
     entered=False
     
-    infoStart=screenChange(n)
+    playerEnd=[]
+    screen=0
+    infoStart=screenChange(0,n,playerEnd,screen,n)
     playerName=infoStart[0]
     running=True
-    start=False 
-    avatarChosen=False
     amIOnStartScreen=True
     amIOnEndScreen=False
     amIOnPlayScreen=False
@@ -20,7 +20,6 @@ def gameRunner():
     mazegrid=0
     player=0
     a=0
-    screen=0
 
     while running:
         for event in pygame.event.get():
@@ -82,8 +81,6 @@ def gameRunner():
                     if 1043<mousePos[0]<1143 and 580<mousePos[1]<680:
                         a=11
 
-                    # print(a)
-
                     
                     if n==1:
                         cols,rows=40,40
@@ -94,37 +91,28 @@ def gameRunner():
 
                     if entered and (n==1 or n==2 or n==3) and a!=0:
                         amIOnStartScreen=False
-                        screenChange(5)
+                        screenChange(0,5,playerEnd,screen,a)
                         amIOnPlayScreen=True
-                        # print("Coming out of wait screen")
 
                     if amIOnPlayScreen and counter==0:
                         myMaze=WilsonMazeGenerator(cols,rows)
                         myMaze.generate_maze()
                         myMaze.solve_maze()
-                        #print(myMaze)
-                        #print(myMaze.solution)
                         myMaze.Directions()
                         myMaze.collectiblesGen(n)
                         counter +=1
                         screen=2
                         mazegrid=myMaze.displayAptGrid()
-                        # print(myMaze.collectibles)
-                        # if n==5:
-                        #     mazeDisplay(screen)
-                
-                    # if (n==1 or n==2 or n==3) and entered and start:
-                    #     amIonStartScreen=False
-                    #     info=screenChange(n) # info=[[mazeScreen,arrayWithCellInfo,rows]]
-                    #     n=7
-                    #     amIOnPlayScreen=True
-                    #     print("came back to game.py")
-
                     
             
             if amIOnPlayScreen and screen==2:
-                playLoop(player,mazegrid,myMaze.collectibles,a,n)
+                playerEnd=playLoop(player,mazegrid,myMaze.collectibles,a,n,myMaze.solution)
+                screen=3
+                amIOnPlayScreen=False
+                amIOnEndScreen=True
+                # print("Back Home")
 
-            
-            
+
+            if amIOnEndScreen and screen==3:
+                screenChange(n,4,playerEnd,screen,myMaze.rows)    
 gameRunner()

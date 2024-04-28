@@ -1,8 +1,7 @@
-import pygame
-pygame.init()
+# Example list A
+A = [[10, 5], [20, 55], [30, 10], [40, 55]]
 
-#screen=pygame.display.set_mode((500,500))
-object1 = pygame.Rect((20, 50), (50, 100))
-object2 = pygame.Rect((10, 10), (100, 100))
- 
-print(object2.colliderect(object1))
+# Sort list A in descending order of the second elements of lists B
+sorted_A = sorted(A, key=lambda x: x[1], reverse=True)
+
+print(sorted_A)

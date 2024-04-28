@@ -45,7 +45,7 @@ def makeWalls(i,j,screen:pygame.Surface,size):
     screen.blit(WALLS,(i*size,j*size))
     # print("wall ",end="")
 
-def playLoop(player:Player,info,collect,a,n):
+def playLoop(player:Player,info,collect,a,n,solution):
     running=True
     viewPort=pygame.display.set_mode((500,750))
     x=rand.randint(1,5)
@@ -55,36 +55,42 @@ def playLoop(player:Player,info,collect,a,n):
     arr2=collect
     cellsize=50
     fps=720
+    detectCollision=True
     # f=open('debug.txt','w')
     # for i in range(len(arr)):
     #     f.write(str(arr[i]))
     #     f.write('\n')
     # f.close()
     clock=pygame.time.Clock()
-    # time=0
+    time=0
     # dt=0
-    # if n==1:
-    #     time=300
-    #     dt=clock.tick(59)/16
-    # if n==2:
-    #     time=360
-    #     dt=clock.tick(60)/17
-    # if n==3:
-    #     time=420
-    #     dt=clock.tick(60)/17
+    if n==1:
+        time=210
+        # dt=clock.tick(59)/16
+    if n==2:
+        time=300
+        # dt=clock.tick(60)/17
+    if n==3:
+        time=360
+        # dt=clock.tick(60)/17
     # f=open("arr.txt",'w')
     # f.write(str(arr))
     # f.close()
     # f=open("debug.txt",'w')
     while running:
         for event in pygame.event.get():
-            # if event.type!=pygame.MOUSEMOTION:
+            if event.type!=pygame.MOUSEMOTION:
                 if event.type==pygame.QUIT:
+                    #print(player.getPlayerReso())
                     exit()
-                if event.type==pygame.KEYDOWN and (event.key in [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN]):
+                if event.type==pygame.KEYDOWN and (event.key in [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN,pygame.K_m,pygame.K_e]):
                     keyPressed=pygame.key.get_pressed()
                     # print("Before: ", player.x, player.y)
-                    playerMove(player,keyPressed,presentGrid,collect)
+                    if keyPressed[pygame.K_e]:
+                        detectCollision=not detectCollision
+                        print(detectCollision)
+                    if not keyPressed[pygame.K_m]:
+                        playerMove(player,keyPressed,presentGrid,collect,time,solution,n)
                     # print("After: ", player.x, player.y)
             
                 chooseBG(x,viewPort)
@@ -129,9 +135,15 @@ def playLoop(player:Player,info,collect,a,n):
         renderPlayer(player,(200,200),viewPort,a)
         pygame.draw.rect(viewPort,BLACK,(0,475,500,80))
         pygame.display.flip()
+        if (player.x,player.y)==(len(info)-6,len(info)-6):
+            # print("End game")
+        # if (player.x,player.y)==(1,0) or (player.x,player.y)==(0,1):
+            running=False
+            break
         clock.tick(fps)
+
         # clock.tick(FPS)
         ####
     # f.close()
-    return    
+    return [player.getPlayerReso() ,time]
     

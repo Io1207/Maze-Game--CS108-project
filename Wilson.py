@@ -99,7 +99,7 @@ class WilsonMazeGenerator:
                 galleons-=1
                 if galleons==0:
                     resources.pop(resources.index(3))
-            elif p==4:  #portkeys
+            elif p==4 and (not (j,i) in self.solution):  #portkeys
                 tile=random.choice(listOfPathTiles)
                 a,b=tile[0],tile[1]
                 collectiblesArr[a][b]='H'
@@ -108,7 +108,7 @@ class WilsonMazeGenerator:
                 Hats-=1
                 if Hats==0:
                     resources.pop(resources.index(4))
-            elif p==5:  #portkeys
+            elif p==5 and (not (j,i) in self.solution):  #portkeys
                 tile=random.choice(listOfPathTiles)
                 a,b=tile[0],tile[1]
                 collectiblesArr[a][b]='B'
@@ -117,7 +117,8 @@ class WilsonMazeGenerator:
                 Boots-=1
                 if Boots==0:
                     resources.pop(resources.index(5))
-            elif p==6:  #portkeys
+            elif p==6 and (not (j,i) in self.solution):  #portkeys
+                # print(self.solution.index((j,i)))
                 tile=random.choice(listOfPathTiles)
                 a,b=tile[0],tile[1]
                 collectiblesArr[a][b]='P'
@@ -146,7 +147,6 @@ class WilsonMazeGenerator:
                 running=False
         self.collectibles=collectiblesArr
 
-
     def displayAptGrid(self):
         arr=[]
         arr=[[] for i in range(self.rows+5)]
@@ -160,8 +160,6 @@ class WilsonMazeGenerator:
                 else:
                     arr[i].append(0)
         return arr
-        
-    
     
     def generate_maze(self):
         self.initialize_grid()
@@ -262,11 +260,10 @@ class WilsonMazeGenerator:
     def cut(self,cell):
         self.grid[cell[0]][cell[1]] = 1
 
-
     def Directions(self):
         length=len(self.solution)
         direction=[]
-        for i in range(length-2):
+        for i in range(length-1):
             curr=self.solution[i]
             next=self.solution[i+1]
             dx,dy=curr[0]-next[0],curr[1]-next[1]
