@@ -10,7 +10,8 @@ class WilsonMazeGenerator:
 
         self.visited = []    
         self.unvisited = []  
-        self.path = dict()   
+        self.path = dict()  
+        self.collectibles=0 
 
         self.directions = [(0,1),(1,0),(0,-1),(-1,0)]
 
@@ -21,9 +22,129 @@ class WilsonMazeGenerator:
         self.start = (0,0)
         self.end = (self.rows-1,self.cols-1)
 
-    def collectiblesGen():
-        #in easy, 40*40
-        print()
+    def collectiblesGen(self,n):
+        arr=self.displayAptGrid()
+        listOfPathTiles=[]
+        
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if arr[i][j]==1:
+                    listOfPathTiles.append((i,j))
+
+        x=len(listOfPathTiles)
+        print(x)
+
+        numPortKeys=0 #P
+        Hats=0
+        Boots=0
+        Trophy=0
+        numWands=0  #W
+        numTimeTurners=0 #T
+        knuts=x//125
+        sickles=x//125
+        galleons=x//125
+
+        if n==1:
+            numPortKeys=x//200 #P
+            numWands=x//200  #W
+            numTimeTurners=x//200 #T
+        elif n==2:
+            numPortKeys=x//200 #P
+            numWands=x//180  #W
+            numTimeTurners=x//200 #T
+        elif n==3:
+            numPortKeys=x//200 #P
+            numWands=x//150  #W
+            numTimeTurners=x//150 #T
+        
+        if numPortKeys%3==0:
+            Hats,Boots,Trophy=numPortKeys/3,numPortKeys/3,numPortKeys/3
+        elif numPortKeys%3==1:
+            Hats,Boots,Trophy=numPortKeys//3,1+numPortKeys//3,numPortKeys//3
+        elif numPortKeys%3==2:
+            Hats,Boots,Trophy=1+numPortKeys//3,numPortKeys//3,1+numPortKeys//3
+
+        collectiblesArr=[[] for i in range(self.rows+5)]
+        for i in range(self.rows+5):
+            for j in range(self.cols+5):
+                collectiblesArr[i].append(0)
+
+        #Allotment
+        running=True
+        resources=[1,2,3,4,5,6,7,8]
+        while running:
+            p=random.choice(resources)
+            if p==1:  #Knuts
+                tile=random.choice(listOfPathTiles)
+                a,b=tile[0],tile[1]
+                collectiblesArr[a][b]='K'
+                listOfPathTiles.pop(listOfPathTiles.index(tile))
+                knuts-=1
+                if knuts==0:
+                    resources.pop(resources.index(1))
+            elif p==2:  #Sickles
+                tile=random.choice(listOfPathTiles)
+                a,b=tile[0],tile[1]
+                collectiblesArr[a][b]='S'
+                listOfPathTiles.pop(listOfPathTiles.index(tile))
+                sickles-=1
+                if sickles==0:
+                    resources.pop(resources.index(2))
+            elif p==3:  #Galleons
+                tile=random.choice(listOfPathTiles)
+                a,b=tile[0],tile[1]
+                collectiblesArr[a][b]='G'
+                listOfPathTiles.pop(listOfPathTiles.index(tile))
+                galleons-=1
+                if galleons==0:
+                    resources.pop(resources.index(3))
+            elif p==4:  #portkeys
+                tile=random.choice(listOfPathTiles)
+                a,b=tile[0],tile[1]
+                collectiblesArr[a][b]='H'
+                listOfPathTiles.pop(listOfPathTiles.index(tile))
+                numPortKeys-=1
+                Hats-=1
+                if Hats==0:
+                    resources.pop(resources.index(4))
+            elif p==5:  #portkeys
+                tile=random.choice(listOfPathTiles)
+                a,b=tile[0],tile[1]
+                collectiblesArr[a][b]='B'
+                listOfPathTiles.pop(listOfPathTiles.index(tile))
+                numPortKeys-=1
+                Boots-=1
+                if Boots==0:
+                    resources.pop(resources.index(5))
+            elif p==6:  #portkeys
+                tile=random.choice(listOfPathTiles)
+                a,b=tile[0],tile[1]
+                collectiblesArr[a][b]='P'
+                listOfPathTiles.pop(listOfPathTiles.index(tile))
+                numPortKeys-=1
+                Trophy-=1
+                if Trophy==0:
+                    resources.pop(resources.index(6))
+            elif p==7:  #wands
+                tile=random.choice(listOfPathTiles)
+                a,b=tile[0],tile[1]
+                collectiblesArr[a][b]='W'
+                listOfPathTiles.pop(listOfPathTiles.index(tile))
+                numWands-=1
+                if numWands==0:
+                    resources.pop(resources.index(7))
+            elif p==8:  #timeturner
+                tile=random.choice(listOfPathTiles)
+                a,b=tile[0],tile[1]
+                collectiblesArr[a][b]='T'
+                listOfPathTiles.pop(listOfPathTiles.index(tile))
+                numTimeTurners-=1
+                if numTimeTurners==0:
+                    resources.pop(resources.index(8))
+            if len(resources)==0:
+                running=False
+        self.collectibles=collectiblesArr
+
 
     def displayAptGrid(self):
         arr=[]
@@ -40,27 +161,14 @@ class WilsonMazeGenerator:
         return arr
         
     
-
-    # def get_grid(self):
-    #     return self.grid
-
-    # def get_solution(self):
-    #     return self.solution
-
-    # def show_solution(self,show):
-    #     self.showSolution = show
     
     def generate_maze(self):
-        # reset the grid before generation
         self.initialize_grid()
 
-        # choose the first cell to put in the visited list
-        # see Step 1 of the algorithm.
         current = self.unvisited.pop(random.randint(0,len(self.unvisited)-1))
         self.visited.append(current)
         self.cut(current)
-
-        
+ 
         while len(self.unvisited) > 0:
             first = self.unvisited[random.randint(0,len(self.unvisited)-1)]
             current = first
@@ -153,16 +261,6 @@ class WilsonMazeGenerator:
     def cut(self,cell):
         self.grid[cell[0]][cell[1]] = 1
 
-    # def revGrid(self):
-    #     #reversing the solGrid
-    #     for i in self.grid:
-    #         print(i)
-    #     intermed=[[] for i in range(self.rows)]
-    #     for i in range(self.rows):
-    #         for j in range(self.cols):
-    #             intermed[i].append(self.grid[i][self.rows-j-1])
-    #     self.grid=intermed
-    #     del intermed
 
     def Directions(self):
         length=len(self.solution)
@@ -186,30 +284,3 @@ class WilsonMazeGenerator:
                     f.write('\n')
             f.close()
         del direction
-################
-#Debugging statements               
-# gen = WilsonMazeGenerator(10,10)
-# gen.generate_maze()
-# print("Maze Generated")
-# gen.solve_maze()
-# print("Solution Generated")
-# quest = 'y'
-# gen.show_solution(quest.strip().lower() == "y")
-# print(gen)
-# #reversing the solGrid
-# for i in gen.grid:
-#     print(i)
-# intermed=[[] for i in range(gen.rows)]
-# for i in range(gen.rows):
-#     for j in range(gen.cols):
-#         intermed[i].append(gen.grid[i][gen.rows-j-1])
-# gen.grid=intermed
-# del intermed
-# print(len(gen.grid))
-# arr=gen.displayAptGrid()
-# for i in gen.grid:
-#     print(i)
-# for i in arr:
-#     print(i)
-# for i in gen.solution:
-#     print(i)

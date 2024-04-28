@@ -46,8 +46,26 @@ HARDBACKG=pygame.Color('darkslategray')
 LOGO_EDGE=300
 LOGO=pygame.image.load("Images\\logoreduced.jpg")
 
+##Collectibles
+KNUTPATH="Images\Collectibles\knut.png"
+KNUTS=pygame.image.load(KNUTPATH)
+SICKLEPATH="Images\Collectibles\sickle.png"
+SICKLES=pygame.image.load(SICKLEPATH)
+GALLPATH="Images\Collectibles\galleon.png"
+GALLEONS=pygame.image.load(GALLPATH)
+BOOTPATH="Images\\Collectibles\\bootPortkey.png"
+BOOT=pygame.image.load(BOOTPATH)
+HATPATH="Images\Collectibles\hat.png"
+HAT=pygame.image.load(HATPATH)
+WPATH="Images\Collectibles\wandwbg.png"
+WAND=pygame.image.load(WPATH)
+TRPATH="Images\\Collectibles\\trophyPort.png"
+TROPHY=pygame.image.load(TRPATH)
+TPATH="Images\\Collectibles\\timeTurn-removebg.png"
+TURNER=pygame.image.load(TPATH)
 
-FPS=10000
+
+
 
 #######
 #Avatars

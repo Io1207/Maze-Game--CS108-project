@@ -1,6 +1,7 @@
 from utils import *
 from Player import *
 import random as rand
+import sys
 
 def chooseBG(x:int,screen:pygame.Surface):
     if x==1:
@@ -19,26 +20,63 @@ def chooseBG(x:int,screen:pygame.Surface):
         screen.fill((26,71,42))
         screen.blit(BG5,(0,0))
 
+def collectibles(i,j,screen:pygame.Surface,cellsize,status):
+    
+    if status=='K':
+        # print("collectibles called")
+        screen.blit(KNUTS,(i*cellsize,j*cellsize))
+    if status=='S':
+        screen.blit(SICKLES,(i*cellsize,j*cellsize))
+    if status=='G':
+        screen.blit(GALLEONS,(i*cellsize,j*cellsize))
+    if status=='H':
+        screen.blit(HAT,(i*cellsize,j*cellsize))
+    if status=='B':
+        screen.blit(BOOT,(i*cellsize,j*cellsize))
+    if status=='P':
+        screen.blit(TROPHY,(i*cellsize,j*cellsize))
+    if status=='T':
+        screen.blit(TURNER,(i*cellsize,j*cellsize))
+    if status=='W':
+        screen.blit(WAND,(i*cellsize,j*cellsize))
+    pygame.display.flip()
+
+
 def makeWalls(i,j,screen:pygame.Surface,size):
     screen.blit(WALLS,(i*size,j*size))
     # print("wall ",end="")
 
-def playLoop(player:Player,info,a):
+def playLoop(player:Player,info,collect,a,n):
     running=True
     viewPort=pygame.display.set_mode((500,750))
     x=rand.randint(1,5)
     pygame.mixer.music.load('BackGTheme.mp3')
     pygame.mixer.music.play(-1)
     arr=info
+    arr2=collect
     cellsize=50
-    f=open('debug.txt','w')
-    for i in range(len(arr)):
-        f.write(str(arr[i]))
-        f.write('\n')
-    f.close()
+    print()
+    # f=open('debug.txt','w')
+    # for i in range(len(arr)):
+    #     f.write(str(arr[i]))
+    #     f.write('\n')
+    # f.close()
+    # clock=pygame.time.Clock()
+    # time=0
+    # dt=0
+    # if n==1:
+    #     time=300
+    #     dt=clock.tick(59)/16
+    # if n==2:
+    #     time=360
+    #     dt=clock.tick(60)/17
+    # if n==3:
+    #     time=420
+    #     dt=clock.tick(60)/17
     # f=open("arr.txt",'w')
     # f.write(str(arr))
     # f.close()
+    # f=open("debug.txt",'w')
     while running:
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
@@ -57,6 +95,11 @@ def playLoop(player:Player,info,a):
                     curr=(player.x-4+i,player.y-4+j)
                     presentGrid[i].append(arr[curr[0]][curr[1]])
 
+            presentCollectibles = [[] for i in range(10)]
+            for i in range(10):
+                for j in range(10):
+                    curr=(player.x-4+i,player.y-4+j)
+                    presentCollectibles[i].append(arr2[curr[0]][curr[1]])
             #Debugging
             # f=open("arr.txt",'w')
             # for i in range(10):
@@ -67,60 +110,27 @@ def playLoop(player:Player,info,a):
             for i in range(10):
                 for j in range(10):
                     cellStatus=presentGrid[j][i]
+                    collectibleStatus=presentCollectibles[i][j]
                     #print(cellStatus)
                     if cellStatus==0:
-                            makeWalls(j,i,viewPort,cellsize)
+                        makeWalls(j,i,viewPort,cellsize)
                         # pygame.draw.line(viewPort,WHITE,(((i+1)*cellsize)-1,((j)*cellsize)-1),(((i+1)*cellsize-1),((j+1)*cellsize-1)),width)
-            renderPlayer(player,(200,200),viewPort,a)
-            pygame.draw.rect(viewPort,BLACK,(0,550,500,80))
-            pygame.display.flip()
+                    if collectibleStatus!=0:
+                        collectibles(i,j,viewPort,cellsize,collectibleStatus)
+                    
+        # if time>0:
+        #     time=time-dt
+            
+        #Debugging
+        # f=open("debug.txt",'w')
+        # f.write(str(time)+"  ")
+        # f.write('\n')
+        # f.close()
+        renderPlayer(player,(200,200),viewPort,a)
+        pygame.draw.rect(viewPort,BLACK,(0,475,500,80))
+        pygame.display.flip()
+        # clock.tick(FPS)
         ####
+    # f.close()
     return    
     
-    
-# def display(grid,screen):
-#     width=1
-#     for i in range(10):
-#         for j in range(10):
-#             cellStatus=grid[i][j]
-#             #print(cellStatus)
-#             if cellStatus[0]:
-#                 pygame.draw.line(screen,WHITE,((i)*cellsize,(j)*cellsize),((i+1)*cellsize,(j)*cellsize),width)
-#             if cellStatus[1]:
-#                 pygame.draw.line(screen,WHITE,((i+1)*cellsize,(j)*cellsize),((i+1)*cellsize,(j+1)*cellsize),width)
-#             if cellStatus[2]:
-#                 pygame.draw.line(screen,WHITE,((i)*cellsize,(j+1)*cellsize),((i+1)*cellsize,(j+1)*cellsize),width)
-#             if cellStatus[3]:
-#                 pygame.draw.line(screen,WHITE,((i)*cellsize,(j)*cellsize),((i)*cellsize,(j+1)*cellsize),width)
-
-
-# def mazeDisplay(info,player:Player):
-#     print("entered maze display function")
-#     viewPort=pygame.display.set_mode((400,700))
-#     viewPort.fill(pygame.Color("Cyan"))
-#     array=info[0]
-#     presentGrid = [[] for _ in range(10)]
-#     for i in range(10):
-#         for j in range(10):
-#             curr=(player.x-4+i,player.y-4+j)
-#             walls=array[curr[0]][curr[1]].walls
-#             # curr=Cell(player.x-4+i,player.y-4+j)
-#             # walls=curr.walls
-#             #print(walls)
-#             walltuple=(0,0,0,0)
-#             if walls['top']:
-#                 walltuple=(1,walltuple[1],walltuple[2],walltuple[3])
-#             if walls['right']:
-#                 walltuple=(walltuple[0],1,walltuple[2],walltuple[3])
-#             if walls['bottom']:
-#                 walltuple=(walltuple[0],walltuple[1],1,walltuple[3])
-#             if walls['left']:
-#                 walltuple=(walltuple[0],walltuple[1],walltuple[2],1)
-#             presentGrid[i].append(walltuple)
-#             print()
-#     # def checkCell(x, y):
-#     #         if x < 0 or x > cols+3 or y < 0 or y > rows+3:
-#     #             return False
-#     #         return array[x][y]
-#     display(presentGrid,viewPort)
-#     pygame.display.flip()

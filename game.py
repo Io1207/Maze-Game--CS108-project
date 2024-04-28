@@ -20,6 +20,7 @@ def gameRunner():
     mazegrid=0
     player=0
     a=0
+    screen=0
 
     while running:
         for event in pygame.event.get():
@@ -38,7 +39,7 @@ def gameRunner():
                         n=2
                     elif WIDTH/2-55<mousePos[0]<WIDTH/2+55 and 510<mousePos[1]<570:
                         n=3
-
+                    print(n)
                 
                     ##Taking name
                     if len(playerName)>0:
@@ -104,9 +105,11 @@ def gameRunner():
                         #print(myMaze)
                         #print(myMaze.solution)
                         myMaze.Directions()
+                        myMaze.collectiblesGen(n)
                         counter +=1
-                        n=7
+                        screen=2
                         mazegrid=myMaze.displayAptGrid()
+                        print(myMaze.collectibles)
                         # if n==5:
                         #     mazeDisplay(screen)
                 
@@ -117,8 +120,10 @@ def gameRunner():
                     #     amIOnPlayScreen=True
                     #     print("came back to game.py")
 
-            if amIOnPlayScreen and n==7:
-                playLoop(player,mazegrid,a)
+                    
+            
+            if amIOnPlayScreen and screen==2:
+                playLoop(player,mazegrid,myMaze.collectibles,a,n)
 
             
             
