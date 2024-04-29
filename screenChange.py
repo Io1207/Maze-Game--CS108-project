@@ -6,13 +6,13 @@ def ScoreCalculation(n,playerEnd):
     timeB=0
     if n==1:
         maxTime=210
-        timeB=10*playerEnd[1]//10
+        timeB=5*playerEnd[1]//10
     if n==2:
         maxTime=300
-        timeB=15*playerEnd[1]//10
+        timeB=8*playerEnd[1]//10
     if n==3:
         maxTime=360
-        timeB=20*playerEnd[1]//10
+        timeB=10*playerEnd[1]//10
     
     wandB=100*playerEnd[0][3]
     knutB=10*playerEnd[0][4]
@@ -102,11 +102,11 @@ def screenChange(difficult,n,playerEnd,navigation,rows):
         #
         
 
-        #Start Button
-        buttonStart=pygame.Rect(WIDTH/2-65,660,130,50)
-        pygame.draw.rect(screen,color="blue",rect=buttonStart)
-        start=font.render("START",True,WHITE)
-        screen.blit(start,(WIDTH/2-40,671))
+        # #Start Button
+        # buttonStart=pygame.Rect(WIDTH/2-65,660,130,50)
+        # pygame.draw.rect(screen,color="blue",rect=buttonStart)
+        # start=font.render("START",True,WHITE)
+        # screen.blit(start,(WIDTH/2-40,671))
         pygame.display.flip()
 
         #Creating text box for name of player
@@ -149,7 +149,7 @@ def screenChange(difficult,n,playerEnd,navigation,rows):
     elif n==4:  #End Screen
         endScreen=pygame.display.set_mode((WAITWIDTH,WAITHEIGHT))
         endScreen.blit(WAITIMG,(0,0))
-        endScreen.blit(pygame.image.load("Images\scroll.png"),(WAITWIDTH/2-257,20))
+        endScreen.blit(pygame.image.load("Images\scroll.png"),(WAITWIDTH/2-280,20))
         pygame.display.set_icon(LOGO)
         pygame.display.set_caption("Enigma Escape")
         font=pygame.font.SysFont('freesansbold.ttf',30)
@@ -157,7 +157,8 @@ def screenChange(difficult,n,playerEnd,navigation,rows):
         font2=pygame.font.SysFont('arial',30)
         font3=pygame.font.SysFont('arial',20)
         victory=False
-        #Start Button
+
+        
         Message2=""
         Message1="Well, atleast you didn't get expelled!"
         Message=font.render(Message1,True,BLACK)
@@ -172,16 +173,19 @@ def screenChange(difficult,n,playerEnd,navigation,rows):
 
         if playerEnd[1]>=0 and [playerEnd[0][1],playerEnd[0][2]]==[rows,rows]:
             victory=True
-            print("Victory")
+            # print("Victory")
+        #Victory Message
         if victory:
             Message2="Mischief Managed!"
             Message=font.render(Message2,True,BLACK)
             endScreen.blit(Message,(WAITWIDTH//2-100,120))
+        #Loss Message
         else:
             endScreen.blit(Message,(WAITWIDTH//2-200,120))
             endScreen.blit(font.render(herm,True,BLACK),(WAITWIDTH//2+10,155))
         score="You Couldn't Find the End"
-
+        
+        #Calc score if won
         if victory:
             score=ScoreCalculation(difficult,playerEnd)
             endScreen.blit(font1.render(str("Your Score: "+str(score)),True,BLACK),(WAITWIDTH//2-130,170))
@@ -259,12 +263,14 @@ def screenChange(difficult,n,playerEnd,navigation,rows):
                     exit()
                 if event.type==pygame.KEYDOWN:
                     keyPressed=pygame.key.get_pressed()
+                    #info=[amIonstartScreen amIonPlatScreen counter entered a]
                     if keyPressed[pygame.K_m]:
                         screen=0
+                        info=['m']
                     elif keyPressed[pygame.K_q]:
                         exit()
                     elif keyPressed[pygame.K_r]:
-                        screen=2
+                        info=['r']
                     #print(mousePos)
                     
         info=[screen]
@@ -281,7 +287,7 @@ def screenChange(difficult,n,playerEnd,navigation,rows):
 
         #Start Button
         font=pygame.font.Font('freesansbold.ttf',28)
-        buttonStart=pygame.Rect(WAITWIDTH/2-65,660,130,50)
+        buttonStart=pygame.Rect(WAITWIDTH/2-140,660,130,50)
         pygame.draw.rect(waitScreen,color="blue",rect=buttonStart)
         start=font.render("START",True,WHITE)
         waitScreen.blit(start,(WIDTH/2-40,671))
@@ -292,6 +298,14 @@ def screenChange(difficult,n,playerEnd,navigation,rows):
             for event in pygame.event.get():    
                 if event.type==pygame.QUIT:
                     exit()
+                if event.type==pygame.KEYDOWN:
+                    keyPressed=pygame.key.get_pressed
+                    if keyPressed[pygame.K_m]:
+                        print()
+                    if keyPressed[pygame.K_q]:
+                        exit()
+                    if keyPressed[pygame.K_r]:
+                        print()
                 if event.type==pygame.MOUSEBUTTONDOWN:
                     mousePos=pygame.mouse.get_pos()
                     #print(mousePos)

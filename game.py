@@ -38,7 +38,8 @@ def gameRunner():
                         n=2
                     elif WIDTH/2-55<mousePos[0]<WIDTH/2+55 and 510<mousePos[1]<570:
                         n=3
-                    print(n)
+
+                    # print(n)
                 
                     ##Taking name
                     if len(playerName)>0:
@@ -89,11 +90,12 @@ def gameRunner():
                     if n==3:
                         cols,rows=90,90
 
+
                     if entered and (n==1 or n==2 or n==3) and a!=0:
                         amIOnStartScreen=False
                         screenChange(0,5,playerEnd,screen,a)
                         amIOnPlayScreen=True
-
+                    
                     if amIOnPlayScreen and counter==0:
                         myMaze=WilsonMazeGenerator(cols,rows)
                         myMaze.generate_maze()
@@ -103,6 +105,7 @@ def gameRunner():
                         counter +=1
                         screen=2
                         mazegrid=myMaze.displayAptGrid()
+                        # print(myMaze.solution)
                     
             
             if amIOnPlayScreen and screen==2:
@@ -114,5 +117,11 @@ def gameRunner():
 
 
             if amIOnEndScreen and screen==3:
-                screenChange(n,4,playerEnd,screen,myMaze.rows)    
+                info=screenChange(n,4,playerEnd,screen,myMaze.rows)   
+                if info[0]=='r':
+                    amIOnStartScreen=True
+                    counter=0
+                    screen=2
+                elif info[0]=='m':
+                    gameRunner()
 gameRunner()

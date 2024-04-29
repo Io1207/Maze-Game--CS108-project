@@ -2,13 +2,7 @@ from utils import *
 import random
 
 class Player:
-    def __init__(self,pos1,pos2,name):#x will be the avatar chosen by clicking the avatar buttons at the start
-        # if x==1:
-        #     self.standImage=pygame.image.load(AV1NORMAL)
-        # elif x==2:
-        #     self.standImage=pygame.image.load(AV2NORMAL)
-        # elif x==3:
-        #     self.standImage=pygame.image.load(AV3NORMAL)
+    def __init__(self,pos1,pos2,name):
         self.x=pos1
         self.y=pos2
         self.name=name
@@ -18,6 +12,9 @@ class Player:
         self.sickles=0
         self.timeTurn=False
         self.portKey=False
+        self.portKeyC=0
+        self.time=0
+        self.turns=0
 
 
     
@@ -66,9 +63,9 @@ def renderPlayer(player:Player,position,screen,a):
     elif a==11:
         screen.blit(SNAPE, (position[0], position[1]))
 
-def turnTime(player:Player,time):
+def turnTime(player:Player):
     if player.timeTurn==True:
-        time+=10
+        player.turns+=1
     player.timeTurn=False
 
 def teleport(player:Player,solution:list,n):
@@ -88,12 +85,12 @@ def teleport(player:Player,solution:list,n):
         player.x=final[0]
         player.y=final[1]
         player.portKey=False
-        print(f"({player.x},{player.y})")
-        print(solution.index((player.x,player.y)))
+        # print(f"({player.x},{player.y})")
+        # print(solution.index((player.x,player.y)))
 
 
     
-def playerMove(player:Player,keyPressed,grid,collectibles,time,solution,n):
+def playerMove(player:Player,keyPressed,grid,collectibles,solution,n):
     #print(grid)
     # print("move function called")
     #player's position in the grid is always (4,4)
@@ -122,19 +119,23 @@ def playerMove(player:Player,keyPressed,grid,collectibles,time,solution,n):
         collectibles[player.x][player.y]=0
     elif a=='H':
         player.portKey=True
+        player.portKeyC+=1
         collectibles[player.x][player.y]=0
         teleport(player,solution,n)
     elif a=='B':
         player.portKey=True
+        player.portKeyC+=1
         collectibles[player.x][player.y]=0
         teleport(player,solution,n)
     elif a=='P':
         player.portKey=True
+        player.portKeyC+=1
         collectibles[player.x][player.y]=0
         teleport(player,solution,n)
     elif a=='T':
         player.timeTurn=True
-        turnTime(player,time)
+        turnTime(player)
+        print(player.time)
         collectibles[player.x][player.y]=0
     elif a=='W':
         player.wandAttacks+=1

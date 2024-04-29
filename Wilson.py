@@ -30,7 +30,7 @@ class WilsonMazeGenerator:
         listOfPathTiles.pop(listOfPathTiles.index((0,0)))
         listOfPathTiles.pop(listOfPathTiles.index((self.end[0],self.end[1])))
         x=len(listOfPathTiles)
-        print(x)
+        # print(x)
 
         numPortKeys=0 #P
         Hats=0
@@ -96,32 +96,39 @@ class WilsonMazeGenerator:
                 galleons-=1
                 if galleons==0:
                     resources.pop(resources.index(3))
-            elif p==4 and (not (j,i) in self.solution):  #portkeys
+            elif p==4:  #portkeys
+                # print((j,i) in self.solution)
                 tile=random.choice(listOfPathTiles)
                 a,b=tile[0],tile[1]
-                collectiblesArr[a][b]='H'
-                listOfPathTiles.pop(listOfPathTiles.index(tile))
-                numPortKeys-=1
-                Hats-=1
+                if not ((b,a) in self.solution):
+                    # print(a,b)
+                    collectiblesArr[a][b]='H'
+                    listOfPathTiles.pop(listOfPathTiles.index(tile))
+                    numPortKeys-=1
+                    Hats-=1
                 if Hats==0:
                     resources.pop(resources.index(4))
             elif p==5 and (not (j,i) in self.solution):  #portkeys
+                # print((j,i) in self.solution)
                 tile=random.choice(listOfPathTiles)
                 a,b=tile[0],tile[1]
-                collectiblesArr[a][b]='B'
-                listOfPathTiles.pop(listOfPathTiles.index(tile))
-                numPortKeys-=1
-                Boots-=1
+                if not ((b,a) in self.solution):
+                    collectiblesArr[a][b]='B'
+                    listOfPathTiles.pop(listOfPathTiles.index(tile))
+                    numPortKeys-=1
+                    Boots-=1
                 if Boots==0:
                     resources.pop(resources.index(5))
             elif p==6 and (not (j,i) in self.solution):  #portkeys
                 # print(self.solution.index((j,i)))
+                # print((j,i) in self.solution)
                 tile=random.choice(listOfPathTiles)
                 a,b=tile[0],tile[1]
-                collectiblesArr[a][b]='P'
-                listOfPathTiles.pop(listOfPathTiles.index(tile))
-                numPortKeys-=1
-                Trophy-=1
+                if not ((b,a) in self.solution):
+                    collectiblesArr[a][b]='P'
+                    listOfPathTiles.pop(listOfPathTiles.index(tile))
+                    numPortKeys-=1
+                    Trophy-=1
                 if Trophy==0:
                     resources.pop(resources.index(6))
             elif p==7:  #wands

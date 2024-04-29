@@ -47,56 +47,59 @@ def makeWalls(i,j,screen:pygame.Surface,size):
 
 def playLoop(player:Player,info,collect,a,n,solution):
     running=True
-    viewPort=pygame.display.set_mode((500,750))
+    viewPort=pygame.display.set_mode((500,555))
     x=rand.randint(1,5)
     pygame.mixer.music.load('BackGTheme.mp3')
     pygame.mixer.music.play(3)
     arr=info
     arr2=collect
     cellsize=50
-    fps=360
-    detectCollision=True
     # f=open('debug.txt','w')
     # for i in range(len(arr)):
     #     f.write(str(arr[i]))
     #     f.write('\n')
     # f.close()
-    clock=pygame.time.Clock()
     timeS=0
     # dt=0
     if n==1:
-        timeS=195
+        timeS=210
         # dt=clock.tick(59)/16
     if n==2:
-        timeS=300
+        timeS=270
         # dt=clock.tick(60)/17
     if n==3:
-        timeS=360
+        timeS=330
         # dt=clock.tick(60)/17
-    dt=clock.tick(fps)/1000
     # f=open("arr.txt",'w')
     # f.write(str(arr))
     # f.close()
     # f=open("arr.txt",'w')
     
     font=pygame.font.SysFont('arial',40)
-    timeDisplay=font.render(str(timeS),True,WHITE)
+    timeDisplay=font.render(str(player.time),True,WHITE)
+    player.time=timeS
     start=time.time()
     while running:
-        
+        if player.time<=0:
+            running=False
+            continue
         for event in pygame.event.get():
             if event.type!=pygame.MOUSEMOTION:
                 if event.type==pygame.QUIT:
                     #print(player.getPlayerReso())
                     exit()
-                if event.type==pygame.KEYDOWN and (event.key in [pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN,pygame.K_m,pygame.K_e]):
+                if event.type==pygame.KEYDOWN and (event.key in [pygame.K_x,pygame.K_LEFT,pygame.K_RIGHT,pygame.K_UP,pygame.K_DOWN,pygame.K_q]):
                     keyPressed=pygame.key.get_pressed()
                     # print("Before: ", player.x, player.y)
-                    if keyPressed[pygame.K_e]:
-                        detectCollision=not detectCollision
-                        print(detectCollision)
+                    if keyPressed[pygame.K_q]:
+                        # detectCollision=not detectCollision
+                        # print(detectCollision)
+                        exit()
+                    if keyPressed[pygame.K_x]:
+                        running=False
+                        continue
                     if not keyPressed[pygame.K_m]:
-                        playerMove(player,keyPressed,presentGrid,collect,timeS,solution,n)
+                        playerMove(player,keyPressed,presentGrid,collect,solution,n)
                     # print("After: ", player.x, player.y)
             
                 chooseBG(x,viewPort)
@@ -153,10 +156,10 @@ def playLoop(player:Player,info,collect,a,n,solution):
             ####
         
         end=time.time()
-        timeShow=timeS-(end-start)
+        player.time=timeS-(end-start) + player.turns*10
         # print(end-start)
-        timeMin=timeShow//60
-        sec=timeShow-timeMin*60
+        timeMin=player.time//60
+        sec=player.time-timeMin*60
         if 10>sec:
             sec='0'+str(int(sec))
         else:
@@ -167,5 +170,5 @@ def playLoop(player:Player,info,collect,a,n,solution):
         else:
             timeDisplay=font.render(Time,True,WHITE)
     # f.close()
-    return [player.getPlayerReso() ,time]
+    return [player.getPlayerReso() ,player.time]
     
